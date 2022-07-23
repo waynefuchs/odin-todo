@@ -1,3 +1,5 @@
+import { EVENT_ITEM_NEW } from './event-types';
+
 const {default: ID} = require('./id');
 
 export default class Item {
@@ -13,6 +15,7 @@ export default class Item {
         this.dueDate = dueDate;
         this.done = done;
         this.originDate = originDate;
+        PubSub.publish(EVENT_ITEM_NEW, this);
     }
 
     setName(name) {
