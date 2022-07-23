@@ -10,6 +10,7 @@ module.exports = {
     ui: './src/ui.js',
     action: './src/userAction.js',
     html: './src/html.js',
+    id: './src/id.js'
   },
  devtool: 'inline-source-map',
   plugins: [

@@ -6,7 +6,7 @@ export default class List {
     }
 
     addItem(item) {
-        if(this._list.find(i => item.getName() === i.getName())) return;
+        if(this._list.find(i => item.getName() === i.getName())) throw "Cannot add todo item: Item already exists";
         this._list.push(item);
     }
 
@@ -14,8 +14,8 @@ export default class List {
         this._list = this._list.filter(i => i.getName() !== name);
     }
 
-    getItems() {
-        return this._list;
+    getItems(done=false) {
+        return this._list.filter(i => i.done === done);
     }
 
     getItem(name) {
