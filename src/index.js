@@ -13,9 +13,9 @@ PubSub.subscribe(EVENT_ITEM_NEW, function(msg, item) {
 const body = document.querySelector('body');
 
 const l = new List();
-const a = new Item("a");
+const a = new Item("This is the first item");
 console.log(a.getID());
-const b = new Item("b");
+const b = new Item("And this is the second item");
 console.log(b.getID());
 l.addItem(a);
 l.addItem(b);

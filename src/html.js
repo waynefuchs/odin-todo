@@ -13,6 +13,7 @@ export default class HTML {
         checkbox.type = "checkbox";
         checkbox.id = name;
         checkbox.name = name;
+
         return checkbox;
     }
 
