@@ -7,6 +7,10 @@ const { default: Item } = require("./item");
 const { default: List } = require("./list");
 const { default: printMe } = require("./print");
 const { default: UI } = require("./ui");
+const { default: Storage } = require("./storage");
+
+const s = new Storage();
+console.dir(s);
 
 PubSub.subscribe(EVENT_ITEM_NEW, function(msg, item) {
     console.log(`Item Added (${msg}): ${item.getTitle()}`);
@@ -31,3 +35,5 @@ UI.createItems(todo, l, false);
 
 body.append(todo);
 body.append(done);
+
+s.saveAllItems();

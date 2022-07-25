@@ -10,7 +10,8 @@ module.exports = {
     ui: './src/ui.js',
     action: './src/userAction.js',
     html: './src/html.js',
-    id: './src/id.js'
+    id: './src/id.js',
+    storage: './src/storage.js'
   },
 
   module: {

@@ -5,3 +5,7 @@ export default {
         return id++;
     }
 };
+
+export function zero() {
+    id = 0;
+}
