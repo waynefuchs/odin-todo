@@ -1,35 +1,24 @@
+
+
 import { EVENT_ITEM_DONE, EVENT_ITEM_UNDONE } from "./event-types";
 import HTML from "./html";
 import Item from "./item";
 
-function updateDone(event, item, done) {
-    const ele = document.querySelector(`#${item.getElementName()}`);
-    if(ele === null) throw `Element (${item.getElementName}) not found.`;
-    item.setDone(done);
-
-    if(done) ele.classList.add('strikethrough');
-    else ele.classList.remove('strikethrough');
-}
-
 export default class UI {
-    constructor() {
-        PubSub.subscribe(EVENT_ITEM_DONE, updateDone);
-    }
-
     static createItem(item) {
-        const div = HTML.div("item", item.getName());
-        div.classList.add('item');
+        const id = item.getID();
+        const title = item.getTitle();
+        const div = HTML.div('item hello', `item${id}`);
 
-        const idName = item.getElementName();
-        const checkbox = HTML.checkbox(idName);
-        const label1 = HTML.label(item.getName(), idName);
-        const label2 = HTML.label(item.getDueDate(), idName);
+        const forInput = `check${id}`;
+        const checkbox = HTML.checkbox(forInput);
+        const label1 = HTML.label(title, forInput);
+        const label2 = HTML.label(item.getDueDate(), forInput);
 
         checkbox.addEventListener('change', (e) => {
-            PubSub.publish(EVENT_ITEM_DONE, item, e.target.checked);
+            console.log("Pushing...");
+            PubSub.publish(EVENT_ITEM_DONE, {item:item, done:e.target.checked});
         });
-
-        PubSub.subscribe(EVENT_ITEM_DONE, updateDone);
 
         div.append(checkbox);
         div.append(label1);

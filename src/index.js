@@ -1,3 +1,5 @@
+import "./style.css";
+
 import PubSub from 'pubsub-js';
 const { EVENT_ITEM_NEW } = require("./event-types");
 const { default: HTML } = require("./html");
@@ -7,7 +9,7 @@ const { default: printMe } = require("./print");
 const { default: UI } = require("./ui");
 
 PubSub.subscribe(EVENT_ITEM_NEW, function(msg, item) {
-    console.log(`Item Added (${msg}): ${item.getName()}`);
+    console.log(`Item Added (${msg}): ${item.getTitle()}`);
 });
 
 const body = document.querySelector('body');

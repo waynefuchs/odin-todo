@@ -12,7 +12,17 @@ module.exports = {
     html: './src/html.js',
     id: './src/id.js'
   },
- devtool: 'inline-source-map',
+
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      }
+    ],  
+  },
+
+  devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Development',

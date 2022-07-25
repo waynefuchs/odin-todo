@@ -1,10 +1,11 @@
 export default class HTML {
-    static div(divClass="", divId="") {
+    static div(divClass="", divID="") {
+        console.log(`HERE: divClass:(${divClass}) divId:${divID}`);
         const div = document.createElement('div');
         divClass.split(' ')
             .filter(c => c !== "")
             .forEach(c => div.classList.add(c));
-        div.id = divId;
+        div.id = divID;
         return div;
     }
 

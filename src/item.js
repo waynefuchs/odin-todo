@@ -2,33 +2,28 @@ import { EVENT_ITEM_DONE, EVENT_ITEM_NEW } from './event-types';
 
 const {default: ID} = require('./id');
 
-const itemDoneStatus = function(item, status) {
-    item.setDone(status);
-}
-
 export default class Item {
     id;
-    name;
+    title;
     dueDate;
     done;
     originDate;
 
-    constructor(name, dueDate, done=false, originDate=new Date()) {
+    constructor(title, dueDate, done=false, originDate=new Date()) {
         this.id = ID.getNext();
-        this.name = name;
+        this.title = title;
         this.dueDate = dueDate;
         this.done = done;
         this.originDate = originDate;
         PubSub.publish(EVENT_ITEM_NEW, this);
-        PubSub.subscribe(EVENT_ITEM_DONE, )
     }
 
-    setName(name) {
-        this.name = name;
+    setTitle(title) {
+        this.title = title;
     }
 
-    getName() {
-        return this.name;
+    getTitle() {
+        return this.title;
     }
 
     setDueDate(dueDate) {
@@ -45,10 +40,6 @@ export default class Item {
 
     getID() {
         return this.id;
-    }
-
-    getElementName() {
-        return `item${this.id}`;
     }
 
     isDone() {

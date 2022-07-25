@@ -6,12 +6,12 @@ export default class List {
     }
 
     addItem(item) {
-        if(this._list.find(i => item.getName() === i.getName())) throw "Cannot add todo item: Item already exists";
+        if(this._list.find(i => item.getTitle() === i.getTitle())) throw "Cannot add todo item: Item already exists";
         this._list.push(item);
     }
 
     deleteItem(name) {
-        this._list = this._list.filter(i => i.getName() !== name);
+        this._list = this._list.filter(i => i.getTitle() !== name);
     }
 
     getItems(done=false) {
@@ -19,10 +19,10 @@ export default class List {
     }
 
     getItem(name) {
-        return this._list.find(i => i.getName() === name);
+        return this._list.find(i => i.getTitle() === name);
     }
 
     contains(name) {
-        return this._list.some(i => i.getName() === name);
+        return this._list.some(i => i.getTitle() === name);
     }
 }
