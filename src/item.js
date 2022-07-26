@@ -1,4 +1,4 @@
-import { EVENT_ITEM_DONE, EVENT_ITEM_NEW } from './event-types';
+import { EVENT_DATA_CHANGED, EVENT_ITEM_DONE, EVENT_ITEM_NEW } from './event-types';
 
 const {default: ID} = require('./id');
 
@@ -9,17 +9,9 @@ export default class Item {
     done;
     originDate;
 
-    constructor(title, dueDate, done=false, originDate=new Date()) {
-        this.id = ID.getNext();
-        this.title = title;
-        this.dueDate = dueDate;
-        this.done = done;
-        this.originDate = originDate;
-        PubSub.publish(EVENT_ITEM_NEW, this);
-    }
-
     setTitle(title) {
         this.title = title;
+        PubSub.publish(EVENT_DATA_CHANGED);
     }
 
     getTitle() {
@@ -28,6 +20,7 @@ export default class Item {
 
     setDueDate(dueDate) {
         this.dueDate = dueDate;
+        PubSub.publish(EVENT_DATA_CHANGED);
     }
 
     getDueDate() {
@@ -48,5 +41,15 @@ export default class Item {
 
     setDone(done) {
         this.done = done;
+        PubSub.publish(EVENT_DATA_CHANGED);
+    }
+
+    constructor(title, dueDate, done=false, originDate=new Date()) {
+        this.id = ID.getNext();
+        this.title = title;
+        this.dueDate = dueDate;
+        this.done = done;
+        this.originDate = originDate;
+        PubSub.publish(EVENT_ITEM_NEW, this);
     }
 }

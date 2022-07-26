@@ -9,31 +9,26 @@ const { default: printMe } = require("./print");
 const { default: UI } = require("./ui");
 const { default: Storage } = require("./storage");
 
-const s = new Storage();
-console.dir(s);
+function initSubscriptions() {
+    // DEBUG
+    PubSub.subscribe(EVENT_ITEM_NEW, function(msg, item) {
+        console.log(`Item Added (${msg}): ${item.getTitle()}`);
+    });
+    // END DEBUG
+}
 
-PubSub.subscribe(EVENT_ITEM_NEW, function(msg, item) {
-    console.log(`Item Added (${msg}): ${item.getTitle()}`);
-});
+initSubscriptions();
+const storage = new Storage();
+const ui = new UI();
 
-const body = document.querySelector('body');
-
+// Debug Items
 const l = new List();
 const a = new Item("This is the first item");
-console.log(a.getID());
-const b = new Item("And this is the second item");
-console.log(b.getID());
 l.addItem(a);
+const b = new Item("And this is the second item");
 l.addItem(b);
 
 console.dir(l.getItems(false));
 
-const todo = HTML.div('', 'todo');
-const done = HTML.div('', 'done');
 
 UI.createItems(todo, l, false);
-
-body.append(todo);
-body.append(done);
-
-s.saveAllItems();

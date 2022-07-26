@@ -1,7 +1,11 @@
+import { EVENT_DATA_CHANGED } from "./event-types";
 import List from "./list";
 
+const list = new List();
+const storageItem = "list";
 const type = 'localStorage';
 let storage = window[type];
+let isLoading = false;
 
 
 function storageAvailable() {
@@ -27,18 +31,39 @@ function storageAvailable() {
     }
 }
 
+function loadBegin() {
+    console.log("Begin Loading!");
+    isLoading = true;
+}
+
+function loadEnd() {
+    isLoading = false;
+    console.log("Loading Complete!");
+}
+
 export default class Storage {
     available = false;
 
-    constructor() {
-        if(storageAvailable()) this.available = true;
-        else alert("Storage is unavailable!");
-    }
-
     saveAllItems() {
-        const list = new List();
+        if(isLoading) return;
         const allItems = JSON.stringify(list.getItems());
         storage.setItem("list", allItems);
-        console.dir(storage.getItem("list"));
+ 
+        console.log("SAVING");
+        console.dir(storage.getItem(storageItem));
+        console.log("SAVED");
     }
+
+    loadAllItems() {
+        loadBegin();
+        const json = JSON.parse(storage.getItem(storageItem));
+        loadEnd();
+    }
+
+    constructor() {
+        if(!storageAvailable()) throw "Storage is unavailable!";
+        this.available = true;
+        PubSub.subscribe(EVENT_DATA_CHANGED, this.saveAllItems);
+    }
+
 }

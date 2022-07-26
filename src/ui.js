@@ -4,6 +4,10 @@ import { EVENT_ITEM_DONE, EVENT_ITEM_UNDONE } from "./event-types";
 import HTML from "./html";
 import Item from "./item";
 
+const body = document.querySelector('body');
+let todo = null;
+let done = null;
+
 export default class UI {
     static createItem(item) {
         const id = item.getID();
@@ -33,4 +37,18 @@ export default class UI {
                 div.append(this.createItem(item)));
     }
 
+    createMainContainer() {
+        todo = HTML.div('', 'todo');
+        body.append(todo);
+        done = HTML.div('', 'done');
+        body.append(done);
+    }
+
+    static getDoneItemContainer() {
+
+    }
+
+    constructor() {
+        this.createMainContainer();
+    }
 }

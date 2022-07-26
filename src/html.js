@@ -1,6 +1,5 @@
 export default class HTML {
     static div(divClass="", divID="") {
-        console.log(`HERE: divClass:(${divClass}) divId:${divID}`);
         const div = document.createElement('div');
         divClass.split(' ')
             .filter(c => c !== "")

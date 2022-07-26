@@ -1,4 +1,5 @@
 import { EVENT_ITEM_DONE } from "./event-types";
+import UI from "./ui";
 
 function delegateItemDoneStatusChanged(event, data) {
     const item = data.item;
@@ -16,3 +17,7 @@ function delegateItemDoneStatusChanged(event, data) {
 }
 
 PubSub.subscribe(EVENT_ITEM_DONE, delegateItemDoneStatusChanged);
+
+
+function delegateListClear(event, list) {
+}

@@ -11,3 +11,11 @@
 .strikethrough {
     text-decoration: line-through;
 }
+
+#todo {
+    background-color: greenyellow;
+}
+
+#done {
+    background-color: orange;
+}
