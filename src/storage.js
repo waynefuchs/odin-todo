@@ -1,4 +1,5 @@
 import { EVENT_DATA_CHANGED } from "./event-types";
+import Item from "./item";
 import List from "./list";
 
 const list = new List();
@@ -32,13 +33,16 @@ function storageAvailable() {
 }
 
 function loadBegin() {
-    console.log("Begin Loading!");
     isLoading = true;
 }
 
 function loadEnd() {
     isLoading = false;
-    console.log("Loading Complete!");
+}
+
+function loadItem(jsonItem) {
+    const item = new Item(jsonItem);
+    list.addItem(item);
 }
 
 export default class Storage {
@@ -46,18 +50,16 @@ export default class Storage {
 
     saveAllItems() {
         if(isLoading) return;
-        const allItems = JSON.stringify(list.getItems());
-        storage.setItem("list", allItems);
- 
-        console.log("SAVING");
-        console.dir(storage.getItem(storageItem));
-        console.log("SAVED");
+        storage.setItem("list", JSON.stringify(List.getItems()));
     }
 
     loadAllItems() {
         loadBegin();
         const json = JSON.parse(storage.getItem(storageItem));
+        console.log(json);
+        for(const item of json) loadItem(item);
         loadEnd();
+        console.log("Loading complete")
     }
 
     constructor() {

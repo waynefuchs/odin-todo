@@ -18,17 +18,19 @@ function initSubscriptions() {
 }
 
 initSubscriptions();
-const storage = new Storage();
 const ui = new UI();
+const storage = new Storage();
+storage.loadAllItems();
 
-// Debug Items
-const l = new List();
+// // Debug Items
+// const l = new List();
 const a = new Item("This is the first item");
-l.addItem(a);
-const b = new Item("And this is the second item");
-l.addItem(b);
+List.addItem(a);
+// const b = new Item("And this is the second item");
+// l.addItem(b);
 
-console.dir(l.getItems(false));
+// console.dir(l.getItems(false));
 
 
-UI.createItems(todo, l, false);
+// UI.createItems(todo, l, false);
+

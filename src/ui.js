@@ -1,12 +1,18 @@
 
 
-import { EVENT_ITEM_DONE, EVENT_ITEM_UNDONE } from "./event-types";
+import { EVENT_DATA_CHANGED, EVENT_ITEM_DONE, EVENT_ITEM_UNDONE } from "./event-types";
 import HTML from "./html";
 import Item from "./item";
+import List from "./list";
 
+// Get a reference to body
 const body = document.querySelector('body');
-let todo = null;
-let done = null;
+
+// Create two 'div' elements directly under body
+const todo = HTML.div('', 'todo');
+const done = HTML.div('', 'done');
+body.append(todo);
+body.append(done);
 
 export default class UI {
     static createItem(item) {
@@ -31,24 +37,31 @@ export default class UI {
         return div;
     }
 
-    static createItems(div, list, done=false) {
-        list.getItems(done)
+    static createItems(div, done=false) {
+        List.getItems(done)
             .forEach(item => 
                 div.append(this.createItem(item)));
     }
 
-    createMainContainer() {
-        todo = HTML.div('', 'todo');
-        body.append(todo);
-        done = HTML.div('', 'done');
-        body.append(done);
+
+    static clear() {
+        UI.removeAllChildNodes(todo);
+        UI.removeAllChildNodes(done);
     }
 
-    static getDoneItemContainer() {
+    static removeAllChildNodes(parent) {
+        while(parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+    }
 
+    static redraw() {
+        UI.clear();
+        UI.createItems(todo, true);
+        UI.createItems(done, false);
     }
 
     constructor() {
-        this.createMainContainer();
+        PubSub.subscribe(EVENT_DATA_CHANGED, UI.redraw);
     }
 }

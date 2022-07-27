@@ -2,6 +2,10 @@ import { EVENT_DATA_CHANGED, EVENT_ITEM_DONE, EVENT_ITEM_NEW } from './event-typ
 
 const {default: ID} = require('./id');
 
+function notifyDataDirty() {
+    PubSub.publish(EVENT_DATA_CHANGED);
+}
+
 export default class Item {
     id;
     title;
@@ -11,7 +15,7 @@ export default class Item {
 
     setTitle(title) {
         this.title = title;
-        PubSub.publish(EVENT_DATA_CHANGED);
+        notifyDataDirty();
     }
 
     getTitle() {
@@ -20,7 +24,7 @@ export default class Item {
 
     setDueDate(dueDate) {
         this.dueDate = dueDate;
-        PubSub.publish(EVENT_DATA_CHANGED);
+        notifyDataDirty();
     }
 
     getDueDate() {
@@ -41,15 +45,18 @@ export default class Item {
 
     setDone(done) {
         this.done = done;
-        PubSub.publish(EVENT_DATA_CHANGED);
+        notifyDataDirty();
     }
 
-    constructor(title, dueDate, done=false, originDate=new Date()) {
+    constructor(jsonItem) {
+        // id gets created based on session
         this.id = ID.getNext();
-        this.title = title;
-        this.dueDate = dueDate;
-        this.done = done;
-        this.originDate = originDate;
+        this.title = jsonItem.title ?? undefined;
+        this.done = jsonItem.done ?? undefined;
+        this.originDate = jsonItem.originDate ?? undefined;
+        this.dueDate = jsonItem.dueDate ?? undefined;
+
         PubSub.publish(EVENT_ITEM_NEW, this);
+        notifyDataDirty();
     }
 }
