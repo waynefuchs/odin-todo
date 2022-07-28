@@ -1,6 +1,5 @@
 
 
-import { EVENT_DATA_CHANGED, EVENT_ITEM_DONE, EVENT_ITEM_UNDONE } from "./event-types";
 import HTML from "./html";
 import Item from "./item";
 import List from "./list";
@@ -15,6 +14,10 @@ body.append(todo);
 body.append(done);
 
 export default class UI {
+    static LoadSite() {
+        console.log("Test");
+    }
+
     static createItem(item) {
         const id = item.getID();
         const title = item.getTitle();
@@ -24,11 +27,6 @@ export default class UI {
         const checkbox = HTML.checkbox(forInput);
         const label1 = HTML.label(title, forInput);
         const label2 = HTML.label(item.getDueDate(), forInput);
-
-        checkbox.addEventListener('change', (e) => {
-            console.log("Pushing...");
-            PubSub.publish(EVENT_ITEM_DONE, {item:item, done:e.target.checked});
-        });
 
         div.append(checkbox);
         div.append(label1);
@@ -59,9 +57,5 @@ export default class UI {
         UI.clear();
         UI.createItems(todo, true);
         UI.createItems(done, false);
-    }
-
-    constructor() {
-        PubSub.subscribe(EVENT_DATA_CHANGED, UI.redraw);
     }
 }
