@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('MaterialIcons-Regular'),
+      url(./fonts/MaterialIcons-Regular.ttf) format('truetype');
+}
+
 * {
     /* disable selection */
     -webkit-touch-callout: none; /* iOS Safari */
@@ -6,6 +14,36 @@
     -moz-user-select: none; /* Old version of Firefox */
     -ms-user-select: none; /* Internet Explorer or Edge */
     user-select: none; /* All modern browsers */    
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: white;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+body {
+    background-color: #222222;
 }
 
 .strikethrough {
