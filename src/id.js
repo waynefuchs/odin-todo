@@ -1,11 +1,15 @@
-let id = 0;
+let _id = 0;
 
-export default {
-    getNext() {
-        return id++;
+export default class ID {
+    static getNext() {
+        return _id++;
+    }
+
+    static set(id) {
+        _id = id;
+    }
+
+    static get() {
+        return _id;
     }
 };
-
-export function zero() {
-    id = 0;
-}

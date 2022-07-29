@@ -1,7 +1,9 @@
 import List from "./list";
 import Item from "./item";
+import ID from './id';
 
-const STORAGE_LIST = "list";
+const STORAGE_LIST = "todo-list";
+const STORAGE_ID = "todo-id";
 
 let storage = window['localStorage'];
 
@@ -31,16 +33,17 @@ export default class Storage {
 
     static saveAllItems() {
         if(isLoading) return;
-        storage.setItem("list", JSON.stringify(List.getItems()));
+        storage.setItem(STORAGE_LIST, JSON.stringify(List.getItems()));
+        storage.setItem(STORAGE_ID, ID.get());
+        console.log("Saving complete");
     }
 
     static loadAllItems() {
-        loadBegin();
         const json = JSON.parse(storage.getItem(STORAGE_LIST));
         console.log(json);
         for(const item of json) Storage._loadItem(item);
-        loadEnd();
-        console.log("Loading complete")
+        ID.set(storage.getItem(STORAGE_ID));
+        console.log("Loading complete");
     }
 
     static _loadItem(jsonItem) {
@@ -49,10 +52,10 @@ export default class Storage {
     }
 
     static makeItemJson(title) {
-        return {
-            id: ,
-            title,
-        }
+        // return {
+        //     id: ,
+        //     title,
+        // }
     }
 
 }
