@@ -15,22 +15,20 @@ export default class UI {
         todoContainerParent.append(todoElement);
     }
 
+    // Handle Toggling the Add Item Input and Div
     static toggleAddItem() {
         const addItem = body.querySelector('#add-item-toggle');
-        if(isAddTodoVisible) this.setAddItemDisplayOn(addItem);
-        else this.setAddItemDisplayOff(addItem);
+        if(isAddTodoVisible) UI.setAddItemDisplayOn(addItem);
+        else UI.setAddItemDisplayOff(addItem);
     }
-
     static setAddItemDisplayOff(element) {
         isAddTodoVisible = true;
         element.style.display = 'block';
         element.querySelector('#input-item').focus();
         body.querySelector('#button-toggle-item').textContent = 'highlight_off';
     }
-
     static setAddItemDisplayOn(element) {
         isAddTodoVisible = false;
-        console.dir(element);
         element.style.display = 'none';
         body.querySelector('#button-toggle-item').textContent = 'add_circle_outline';
     }
@@ -57,10 +55,7 @@ export default class UI {
         buttonToggle.type = 'image';
         buttonToggle.classList.add('material-icons');
         buttonToggle.textContent = 'add_circle_outline';
-        buttonToggle.addEventListener('click', () => {
-            console.log("clicked");
-            UI.toggleAddItem();
-        });
+        buttonToggle.addEventListener('click', UI.toggleAddItem);
 
         toggleDiv.append(inputTextItem);
         toggleDiv.append(buttonAdd);
