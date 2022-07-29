@@ -1,71 +1,58 @@
-import { EVENT_DATA_CHANGED } from "./event-types";
-import Item from "./item";
 import List from "./list";
+import Item from "./item";
 
-const list = new List();
-const storageItem = "list";
-const type = 'localStorage';
-let storage = window[type];
-let isLoading = false;
+const STORAGE_LIST = "list";
 
-
-function storageAvailable() {
-    try {
-        const x = '__storage_test__';
-        storage.setItem(x, x);
-        storage.removeItem(x);
-        return true;
-    }
-    catch(e) {
-        return e instanceof DOMException && (
-            // everything except Firefox
-            e.code === 22 ||
-            // Firefox
-            e.code === 1014 ||
-            // test name field too, because code might not be present
-            // everything except Firefox
-            e.name === 'QuotaExceededError' ||
-            // Firefox
-            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-            // acknowledge QuotaExceededError only if there's something already stored
-            (storage && storage.length !== 0);
-    }
-}
-
-function loadBegin() {
-    isLoading = true;
-}
-
-function loadEnd() {
-    isLoading = false;
-}
-
-function loadItem(jsonItem) {
-    const item = new Item(jsonItem);
-    list.addItem(item);
-}
+let storage = window['localStorage'];
 
 export default class Storage {
-    available = false;
+    static isStorageAvailable() {
+        try {
+            const x = '__storage_test__';
+            storage.setItem(x, x);
+            storage.removeItem(x);
+            return true;
+        }
+        catch(e) {
+            return e instanceof DOMException && (
+                // everything except Firefox
+                e.code === 22 ||
+                // Firefox
+                e.code === 1014 ||
+                // test name field too, because code might not be present
+                // everything except Firefox
+                e.name === 'QuotaExceededError' ||
+                // Firefox
+                e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+                // acknowledge QuotaExceededError only if there's something already stored
+                (storage && storage.length !== 0);
+        }
+    }
 
-    saveAllItems() {
+    static saveAllItems() {
         if(isLoading) return;
         storage.setItem("list", JSON.stringify(List.getItems()));
     }
 
-    loadAllItems() {
+    static loadAllItems() {
         loadBegin();
-        const json = JSON.parse(storage.getItem(storageItem));
+        const json = JSON.parse(storage.getItem(STORAGE_LIST));
         console.log(json);
-        for(const item of json) loadItem(item);
+        for(const item of json) Storage._loadItem(item);
         loadEnd();
         console.log("Loading complete")
     }
 
-    constructor() {
-        if(!storageAvailable()) throw "Storage is unavailable!";
-        this.available = true;
-        PubSub.subscribe(EVENT_DATA_CHANGED, this.saveAllItems);
+    static _loadItem(jsonItem) {
+        const item = new Item(jsonItem);
+        list.addItem(item);
+    }
+
+    static makeItemJson(title) {
+        return {
+            id: ,
+            title,
+        }
     }
 
 }
