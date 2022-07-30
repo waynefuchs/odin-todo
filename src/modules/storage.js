@@ -33,6 +33,7 @@ export default class Storage {
     }
 
     static addItemByTitle(title) {
+        if(title.length <= 0) return false;
         const jsonItem = Storage.makeJSONItem(title);
         const item = Storage.loadJSONItem(jsonItem);
         Storage.save();

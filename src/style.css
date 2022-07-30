@@ -13,7 +13,9 @@
     -khtml-user-select: none; /* Konqueror */
     -moz-user-select: none; /* Old version of Firefox */
     -ms-user-select: none; /* Internet Explorer or Edge */
-    user-select: none; /* All modern browsers */    
+    user-select: none; /* All modern browsers */
+
+    color: white;
 }
 
 .material-icons {
@@ -56,4 +58,8 @@ body {
 
 #done {
     background-color: orange;
+}
+
+input {
+    color: black;
 }

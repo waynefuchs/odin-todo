@@ -7,6 +7,7 @@ let isAddTodoVisible = false;
 
 export default class UI {
     static loadSite() {
+        UI.createMessageContainer();
         UI.createContainerTodo();
         UI.createContainerAddItem();
     }
@@ -33,6 +34,19 @@ export default class UI {
         isAddTodoVisible = false;
         element.style.display = 'none';
         body.querySelector('#button-toggle-item').textContent = 'add_circle_outline';
+    }
+
+    static createMessageContainer() {
+        const messageDiv = document.createElement('div');
+        messageDiv.id = 'message';
+        body.append(messageDiv);
+    }
+
+    static createMessage(text) {
+        const messageDiv = document.querySelector('#message');
+        const message = document.createElement('p');
+        message.textContent = text;
+        messageDiv.append(message);
     }
 
     static createContainerAddItem() {
@@ -70,19 +84,24 @@ export default class UI {
         todoContainerParent.append(addItemMainDiv);
     }
 
-    static clearInputTextAddItem(inputTextItemTitle) {
+    static clearInputTextAddItem() {
+        const inputTextItemTitle = document.querySelector('#input-item-title');
         inputTextItemTitle.value = "";
     }
 
-    // TODO: Make this an HTML message rather than a pop-up
     static notifyAddFailed(inputTextItemTitle) {
-        alert(`Adding ${inputTextItemTitle.value} failed.`);
+        UI.createMessage(`Adding ${inputTextItemTitle.value} failed.`);
     }
 
     static addItemByTitle(e) {
         const inputTextItemTitle = document.querySelector('#input-item-title');
-        const item = Storage.addItemByTitle(inputTextItemTitle.value);
+        const title = inputTextItemTitle.value;
+        const item = Storage.addItemByTitle(title);
         if(!item) UI.notifyAddFailed(inputTextItemTitle);
-        this.clearInputTextAddItem(inputTextItemTitle);
+        this.clearInputTextAddItem();
     };
+
+    static createItemContainer(item) {
+
+    }
 }
