@@ -6,56 +6,58 @@ const STORAGE_LIST = "todo-list";
 const STORAGE_ID = "todo-id";
 
 let storage = window['localStorage'];
+let isLoading = false;
 
 export default class Storage {
-    static isStorageAvailable() {
-        try {
-            const x = '__storage_test__';
-            storage.setItem(x, x);
-            storage.removeItem(x);
-            return true;
+    static save() {
+        if(isLoading) {
+            console.error("Attempted to save during load process.");
+            return;
         }
-        catch(e) {
-            return e instanceof DOMException && (
-                // everything except Firefox
-                e.code === 22 ||
-                // Firefox
-                e.code === 1014 ||
-                // test name field too, because code might not be present
-                // everything except Firefox
-                e.name === 'QuotaExceededError' ||
-                // Firefox
-                e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-                // acknowledge QuotaExceededError only if there's something already stored
-                (storage && storage.length !== 0);
-        }
-    }
-
-    static saveAllItems() {
-        if(isLoading) return;
         storage.setItem(STORAGE_LIST, JSON.stringify(List.getItems()));
         storage.setItem(STORAGE_ID, ID.get());
-        console.log("Saving complete");
+        Storage.logStorage("Save Complete");   // debug
     }
 
-    static loadAllItems() {
+    static load() {
+        isLoading = true;
         const json = JSON.parse(storage.getItem(STORAGE_LIST));
-        console.log(json);
-        for(const item of json) Storage._loadItem(item);
+        for(const item of json) Storage.createItemFromJSON(item);
         ID.set(storage.getItem(STORAGE_ID));
-        console.log("Loading complete");
+        isLoading = false;
+        Storage.logStorage("Load Complete");   // debug
     }
 
-    static _loadItem(jsonItem) {
-        const item = new Item(jsonItem);
-        list.addItem(item);
+    static createItemFromJSON(jsonItem) {
+        return new Item(jsonItem);
     }
 
-    static makeItemJson(title) {
-        // return {
-        //     id: ,
-        //     title,
-        // }
+    static addItemByTitle(title) {
+        const jsonItem = Storage.makeJSONItem(title);
+        const item = Storage.loadJSONItem(jsonItem);
+        Storage.save();
+        return item;
     }
 
+    static loadJSONItem(jsonItem) {
+        return List.addItem(this.createItemFromJSON(jsonItem));
+    }
+
+    static makeJSONItem(title) {
+        return {
+            id: ID.getNext(),
+            title,
+            done: false,
+            originDate: Date.now(),
+            dueDate: false
+        };
+    }
+
+    static logStorage(message) {
+        console.log(`${message}: ${Storage.toString()}`);
+    }
+
+    static toString() {
+        return `STORAGE: ${storage.getItem(STORAGE_LIST)}\nID: ${storage.getItem(STORAGE_ID)}`;
+    }
 }
