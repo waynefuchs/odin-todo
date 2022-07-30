@@ -21,11 +21,16 @@ export default class Storage {
 
     static load() {
         isLoading = true;
-        const json = JSON.parse(storage.getItem(STORAGE_LIST));
-        for(const item of json) Storage.createItemFromJSON(item);
         ID.set(storage.getItem(STORAGE_ID));
+        const json = JSON.parse(storage.getItem(STORAGE_LIST));
+        for(const jsonItem of json) {
+            const item = Storage.createItemFromJSON(jsonItem);
+            console.dir(item);
+            List.add(item);
+        }
         isLoading = false;
         Storage.logStorage("Load Complete");   // debug
+        return List.getItems();
     }
 
     static createItemFromJSON(jsonItem) {
@@ -41,7 +46,7 @@ export default class Storage {
     }
 
     static loadJSONItem(jsonItem) {
-        return List.addItem(this.createItemFromJSON(jsonItem));
+        return List.add(this.createItemFromJSON(jsonItem));
     }
 
     static makeJSONItem(title) {

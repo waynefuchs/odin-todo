@@ -11,6 +11,7 @@ export default class UI {
         UI.createMessageContainer();
         UI.createContainerTodo();
         UI.createContainerAddItem();
+        UI.loadList();
     }
 
     static createContainerTodo() {
@@ -126,7 +127,14 @@ export default class UI {
         this.createItem(item);
     };
 
-    static createItemContainer(item) {
 
+    static loadList() {
+        const list = Storage.load();
+        console.dir(list);
+        for(const item of list) {
+            console.dir(item);
+            this.createItem(item);
+        }
     }
+
 }

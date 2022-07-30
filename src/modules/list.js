@@ -7,7 +7,7 @@ export default class List {
         return todoList.find(i => title === i.getTitle()) !== undefined;
     }
 
-    static addItem(item) {
+    static add(item) {
         if(List.contains(item.getTitle())) return false;
         todoList.push(item);
         return item;
@@ -37,7 +37,15 @@ export default class List {
         todoList = [];        
     }
 
-    static getItems(done=false) {
-        return todoList.filter(i => i.done === done);
+    static getItems() {
+        return todoList;
+    }
+
+    static getNotDoneItems() {
+        return todoList.filter(i => i.done === false);
+    }
+
+    static getDoneItems() {
+        return todoList.filter(i => i.done === true);
     }
 }
