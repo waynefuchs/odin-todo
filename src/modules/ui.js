@@ -1,4 +1,5 @@
-import Storage from "./storage";
+import Storage from './storage';
+import Item from './item';
 
 const body = document.querySelector("body");
 const todoContainerParent = body;
@@ -49,6 +50,26 @@ export default class UI {
         messageDiv.append(message);
     }
 
+    static createItem(item) {
+        const id = item.getID();
+        const todoElement = document.querySelector('#todo');
+
+        const div = document.createElement('div');
+        div.id = `item${id}`;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = `item-checkbox${id}`;
+
+        const title = document.createElement('p');
+        title.id = `item-title${id}`;
+        title.textContent = item.getTitle();
+
+        div.append(checkbox);
+        div.append(title);
+        todoElement.append(div);
+    }
+
     static createContainerAddItem() {
         const addItemMainDiv = document.createElement('div');
         addItemMainDiv.id = 'add-item';
@@ -89,16 +110,20 @@ export default class UI {
         inputTextItemTitle.value = "";
     }
 
-    static notifyAddFailed(inputTextItemTitle) {
-        UI.createMessage(`Adding ${inputTextItemTitle.value} failed.`);
+    static notify(message) {
+        UI.createMessage(message);
     }
 
     static addItemByTitle(e) {
         const inputTextItemTitle = document.querySelector('#input-item-title');
         const title = inputTextItemTitle.value;
         const item = Storage.addItemByTitle(title);
-        if(!item) UI.notifyAddFailed(inputTextItemTitle);
         this.clearInputTextAddItem();
+        if(!item) {
+            UI.notify(`Adding ${title} failed.`);
+            return;
+        }
+        this.createItem(item);
     };
 
     static createItemContainer(item) {
