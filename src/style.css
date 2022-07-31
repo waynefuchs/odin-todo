@@ -65,9 +65,17 @@ body {
 }
 
 #add-item {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+}
+
+.message {
+    background-color: orange;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1vw;
+    padding: 1vh 1vw;
 }
 
 .item {
@@ -96,4 +104,9 @@ button.cancel {
 }
 button.delete {
     background-color: red;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-block-start: 0.2em;
+    margin-block-end: 0.2em;
 }

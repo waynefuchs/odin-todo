@@ -4,20 +4,31 @@ import Item from './item';
 const body = document.querySelector("body");
 
 let isAddTodoVisible = false;
+let messageList = [];
+let messageID = 0;
 
 export default class UI {
     static loadSite() {
+        UI.createHeading('h1', 'todo');
         UI.createMessageContainer();
-        UI.createHeading('todo');
-        UI.createContainerTodo();
         UI.createContainerAddItem();
-        UI.createHeading('done');
+        UI.createContainerTodo();
         UI.createContainerDone();
         UI.loadList();
+        document.addEventListener('keydown', UI.listenForKeyboardEvents);
     }
 
-    static createHeading(message) {
-        const heading = document.createElement('h2');
+    static listenForKeyboardEvents(e) {
+        if(e.key === "Escape") {
+            if(messageList.length > 0) UI.deleteMessage.bind(messageList[0])();
+            else if(isAddTodoVisible) UI.toggleAddItem();
+        }
+        
+        //else console.log(e.key);
+    }
+
+    static createHeading(type, message) {
+        const heading = document.createElement(type);
         heading.textContent = message;
         body.append(heading);
     }
@@ -35,8 +46,9 @@ export default class UI {
     }
 
     // Handle Toggling the Add Item Input and Div
-    static toggleAddItem(e) {
-        e.target.classList.toggle('cancel');
+    static toggleAddItem() {
+        const button = document.querySelector('#button-toggle-item');
+        button.classList.toggle('cancel');
         const addItem = body.querySelector('#add-item-toggle');
         if(isAddTodoVisible) UI.setAddItemDisplayOn(addItem);
         else UI.setAddItemDisplayOff(addItem);
@@ -60,10 +72,33 @@ export default class UI {
     }
 
     static createMessage(text) {
-        const messageDiv = document.querySelector('#message');
-        const message = document.createElement('p');
+        const containerDiv = document.querySelector('#message');
+
+        const messageDiv = document.createElement('div');
+        messageDiv.id = `message${messageID++}`;
+        messageDiv.classList.add('message');
+
+        const buttonDelete = document.createElement('button');
+        buttonDelete.id = `buttonDelete${messageDiv.id}`
+        buttonDelete.classList.add('material-icons');
+        buttonDelete.classList.add('cancel');
+        buttonDelete.textContent = "warning";
+        buttonDelete.addEventListener('click', UI.deleteMessage.bind(messageDiv));
+
+        const message = document.createElement('label');
+        message.htmlFor = buttonDelete.id;
         message.textContent = text;
+
         messageDiv.append(message);
+        messageDiv.append(buttonDelete);
+
+        containerDiv.append(messageDiv);
+        messageList.push(messageDiv);
+    }
+
+    static deleteMessage() {
+        messageList = messageList.filter(m => m.id !== this.id);
+        this.remove();
     }
 
     static createItem(item) {
@@ -94,17 +129,30 @@ export default class UI {
         div.append(title);
         div.append(buttonDelete);
         
-        if(item.isDone()) done.append(div);
-        else todo.append(div);
+        if(item.isDone()) {
+            done.append(div);
+            title.classList.add('strikethrough');
+        }
+        else {
+            todo.append(div);
+            title.classList.remove('strikethrough');
+        }
     }
 
     static checkboxChanged(e) {
         const id = parseInt(e.target.id.slice(13));
         const checked = e.target.checked;
         const itemElement = document.querySelector(`#item${id}`);
+        const labelElement = itemElement.querySelector('label');
         Storage.setDone(id, checked);
-        if(checked) done.appendChild(itemElement);
-        else todo.appendChild(itemElement);
+        if(checked) {
+            done.appendChild(itemElement);
+            labelElement.classList.add('strikethrough');
+        }
+        else {
+            todo.appendChild(itemElement);
+            labelElement.classList.remove('strikethrough');
+        }
     }
 
     static deleteItem(e) {
@@ -142,8 +190,8 @@ export default class UI {
 
         toggleDiv.append(inputTextItemTitle);
         toggleDiv.append(buttonAdd);
-        addItemMainDiv.append(toggleDiv);
         addItemMainDiv.append(buttonToggle);
+        addItemMainDiv.append(toggleDiv);
         body.append(addItemMainDiv);
     }
 
