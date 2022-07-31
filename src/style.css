@@ -45,6 +45,8 @@
 }
 
 body {
+    margin: 0;
+    padding: 0;
     background-color: #222222;
 }
 
@@ -54,12 +56,44 @@ body {
 
 #todo {
     background-color: grey;
+    display: grid;
+    grid-auto-flow: row;
 }
 
 #done {
-    background-color: orange;
+    background-color: #444444;
+}
+
+#add-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.item {
+    display: grid;
+    grid-template-columns: auto 5fr 40px;
+    align-items: center;
+    gap: 1vw;
+    padding: 1vh 1vw;
+}
+
+input[type=checkbox] {
+    margin: 0;
+    padding: 0;
 }
 
 input {
     color: black;
+}
+
+button {
+    background-color: green;
+    border-radius: 5px;
+}
+button.cancel {
+    background-color: orange;
+}
+button.delete {
+    background-color: red;
 }

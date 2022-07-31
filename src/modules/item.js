@@ -39,10 +39,10 @@ export default class Item {
 
     constructor(jsonItem) {
         // id gets created based on session
-        this.id = jsonItem.id ?? undefined;
-        this.title = jsonItem.title ?? undefined;
-        this.done = jsonItem.done ?? undefined;
-        this.originDate = jsonItem.originDate ?? undefined;
-        this.dueDate = jsonItem.dueDate ?? undefined;
+        this.id = jsonItem.id ?? -1;
+        this.title = jsonItem.title ?? "";
+        this.done = jsonItem.done ?? false;
+        this.originDate = jsonItem.originDate ?? Date.now();
+        this.dueDate = jsonItem.dueDate ?? false;
     }
 }

@@ -18,11 +18,13 @@ export default class List {
     }
 
     static deleteItemByID(id) {
-        todoList = todoList.filter(i => i.getID() !== id);
+        const item = todoList.find(i => i.getID() === id) ?? false;
+        if(item) todoList = todoList.filter(i => i.getID() !== id);
+        return item;
     }
 
-    static getItemByName(name) {
-        return todoList.find(i => i.getTitle() === name);
+    static getItemByTitle(title) {
+        return todoList.find(i => i.getTitle() === title);
     }
 
     static getItemByID(id) {

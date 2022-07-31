@@ -4,6 +4,7 @@ import ID from './id';
 
 const STORAGE_LIST = "todo-list";
 const STORAGE_ID = "todo-id";
+const DEBUG_ON = false;
 
 let storage = window['localStorage'];
 let isLoading = false;
@@ -23,17 +24,25 @@ export default class Storage {
         isLoading = true;
         ID.set(storage.getItem(STORAGE_ID));
         const json = JSON.parse(storage.getItem(STORAGE_LIST));
-        for(const jsonItem of json) {
-            const item = Storage.createItemFromJSON(jsonItem);
-            console.dir(item);
-            List.add(item);
-        }
+        Storage.loadJSONArray(json);
         isLoading = false;
         Storage.logStorage("Load Complete");   // debug
         return List.getItems();
     }
 
-    static createItemFromJSON(jsonItem) {
+    static loadJSONArray(json) {
+        if(json === null) return;
+        for(const jsonItem of json) {
+            const item = Storage.newItemFromJSON(jsonItem);
+            List.add(item);
+        }
+    }
+
+    static loadJSONItem(jsonItem) {
+        return List.add(this.newItemFromJSON(jsonItem));
+    }
+
+    static newItemFromJSON(jsonItem) {
         return new Item(jsonItem);
     }
 
@@ -43,10 +52,6 @@ export default class Storage {
         const item = Storage.loadJSONItem(jsonItem);
         Storage.save();
         return item;
-    }
-
-    static loadJSONItem(jsonItem) {
-        return List.add(this.createItemFromJSON(jsonItem));
     }
 
     static makeJSONItem(title) {
@@ -60,10 +65,23 @@ export default class Storage {
     }
 
     static logStorage(message) {
+        if(!DEBUG_ON) return;
         console.log(`${message}: ${Storage.toString()}`);
     }
 
     static toString() {
-        return `STORAGE: ${storage.getItem(STORAGE_LIST)}\nID: ${storage.getItem(STORAGE_ID)}`;
+        return `ID: ${storage.getItem(STORAGE_ID)}\nSTORAGE: ${storage.getItem(STORAGE_LIST)}`;
+    }
+
+    static setDone(id, done) {
+        const item = List.getItemByID(id);
+        item.setDone(done);
+        Storage.save();
+    }
+
+    static deleteItem(id) {
+        const result = List.deleteItemByID(id);
+        if(result) Storage.save();
+        return result;
     }
 }
