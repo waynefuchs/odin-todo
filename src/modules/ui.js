@@ -55,13 +55,13 @@ export default class UI {
     }
     static setAddItemDisplayOff(element) {
         isAddTodoVisible = true;
-        element.style.display = 'block';
+        element.style.visibility = 'hidden';
         element.querySelector('#input-item-title').focus();
         body.querySelector('#button-toggle-item').textContent = 'highlight_off';
     }
     static setAddItemDisplayOn(element) {
         isAddTodoVisible = false;
-        element.style.display = 'none';
+        element.style.visibility = 'visible';
         body.querySelector('#button-toggle-item').textContent = 'add_circle_outline';
     }
 
@@ -167,7 +167,7 @@ export default class UI {
         
         const toggleDiv = document.createElement('div');
         toggleDiv.id = 'add-item-toggle';
-        toggleDiv.style.display = 'none';
+        toggleDiv.classList.add('hidden');
 
         const inputTextItemTitle = document.createElement('input');
         inputTextItemTitle.id = 'input-item-title';
@@ -190,8 +190,8 @@ export default class UI {
 
         toggleDiv.append(inputTextItemTitle);
         toggleDiv.append(buttonAdd);
-        addItemMainDiv.append(buttonToggle);
         addItemMainDiv.append(toggleDiv);
+        addItemMainDiv.append(buttonToggle);
         body.append(addItemMainDiv);
     }
 

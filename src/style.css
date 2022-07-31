@@ -66,7 +66,11 @@ body {
 
 #add-item {
     display: grid;
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: 1fr auto;
+}
+
+.hidden {
+    visibility: hidden;
 }
 
 .message {
@@ -80,7 +84,7 @@ body {
 
 .item {
     display: grid;
-    grid-template-columns: auto 5fr 40px;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
     gap: 1vw;
     padding: 1vh 1vw;
