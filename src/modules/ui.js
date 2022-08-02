@@ -11,7 +11,7 @@ export default class UI {
     static loadSite() {
         UI.createHeading('h1', 'todo');
         UI.createMessageContainer();
-        UI.createContainerAddItem();
+        UI.createAddItemToggle();
         UI.createContainerTodo();
         UI.createContainerDone();
         UI.loadList();
@@ -22,6 +22,9 @@ export default class UI {
         if(e.key === "Escape") {
             if(messageList.length > 0) UI.deleteMessage.bind(messageList[0])();
             else if(isAddTodoVisible) UI.toggleAddItem();
+        } else if(e.key === 'n' && !isAddTodoVisible) {
+            e.preventDefault();
+            UI.toggleAddItem();
         }
         
         //else console.log(e.key);
@@ -50,21 +53,18 @@ export default class UI {
         const button = document.querySelector('#button-toggle-item');
         button.classList.toggle('cancel');
         const addItem = body.querySelector('#add-item-toggle');
-        console.log(isAddTodoVisible);
         if(isAddTodoVisible) UI.setAddItemDisplayOff(addItem);
         else UI.setAddItemDisplayOn(addItem);
     }
     static setAddItemDisplayOff(element) {
         isAddTodoVisible = false;
         element.classList.add('hidden');
-//        element.style.visibility = 'hidden';
-        element.querySelector('#input-item-title').focus();
         body.querySelector('#button-toggle-item').textContent = 'highlight_off';
     }
     static setAddItemDisplayOn(element) {
         isAddTodoVisible = true;
         element.classList.remove('hidden');
-//        element.style.visibility = 'visible';
+        element.querySelector('#input-item-title').focus();
         body.querySelector('#button-toggle-item').textContent = 'add_circle_outline';
     }
 
@@ -110,6 +110,7 @@ export default class UI {
         const div = document.createElement('div');
         div.id = `item${id}`;
         div.classList.add('item');
+        div.draggable = "true";
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
@@ -164,7 +165,7 @@ export default class UI {
         if(Storage.deleteItem(id)) itemElement.remove();
     }
 
-    static createContainerAddItem() {
+    static createAddItemToggle() {
         const addItemMainDiv = document.createElement('div');
         addItemMainDiv.id = 'add-item';
         
@@ -184,7 +185,7 @@ export default class UI {
         buttonAdd.textContent = "Add";
         buttonAdd.addEventListener('click', UI.addItemByTitle);
         
-        // Button to show and hide the add (input / button)
+        // Button to show and hide the #add-item-toggle (input / button)
         const buttonToggle = document.createElement('button');
         buttonToggle.id = "button-toggle-item";
         buttonToggle.classList.add('material-icons');

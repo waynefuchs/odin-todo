@@ -69,6 +69,11 @@ body {
 #add-item {
     display: grid;
     grid-template-columns: 1fr auto;
+    padding: 1vh 1vw;
+}
+#add-item-toggle {
+    display: flex;
+    gap: 1vw;
 }
 
 .hidden {
