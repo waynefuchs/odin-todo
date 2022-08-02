@@ -1,6 +1,7 @@
 export default class Item {
     id;
     title;
+    project;
     done;
     originDate;
     dueDate;
@@ -11,6 +12,14 @@ export default class Item {
 
     getTitle() {
         return this.title;
+    }
+
+    setProject(projectID) {
+        this.projectID = projectID;
+    }
+
+    getProject() {
+        return this.projectID;
     }
 
     setDueDate(dueDate) {
@@ -29,18 +38,19 @@ export default class Item {
         return this.id;
     }
 
-    isDone() {
-        return this.done;
-    }
-
     setDone(done) {
         this.done = done;
+    }
+
+    isDone() {
+        return this.done;
     }
 
     constructor(jsonItem) {
         // id gets created based on session
         this.id = jsonItem.id ?? -1;
         this.title = jsonItem.title ?? "";
+        this.project = jsonItem.project ?? 0;
         this.done = jsonItem.done ?? false;
         this.originDate = jsonItem.originDate ?? Date.now();
         this.dueDate = jsonItem.dueDate ?? false;
