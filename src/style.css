@@ -54,7 +54,9 @@ body {
     text-decoration: line-through;
 }
 
-#todo {
+#todo,
+#done {
+    font-size: 2rem;
     background-color: grey;
     display: grid;
     grid-auto-flow: row;

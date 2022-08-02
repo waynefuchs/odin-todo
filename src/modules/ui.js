@@ -1,5 +1,5 @@
 import Storage from './storage';
-import Item from './item';
+// import Item from './item';
 
 const body = document.querySelector("body");
 
@@ -50,18 +50,21 @@ export default class UI {
         const button = document.querySelector('#button-toggle-item');
         button.classList.toggle('cancel');
         const addItem = body.querySelector('#add-item-toggle');
-        if(isAddTodoVisible) UI.setAddItemDisplayOn(addItem);
-        else UI.setAddItemDisplayOff(addItem);
+        console.log(isAddTodoVisible);
+        if(isAddTodoVisible) UI.setAddItemDisplayOff(addItem);
+        else UI.setAddItemDisplayOn(addItem);
     }
     static setAddItemDisplayOff(element) {
-        isAddTodoVisible = true;
-        element.style.visibility = 'hidden';
+        isAddTodoVisible = false;
+        element.classList.add('hidden');
+//        element.style.visibility = 'hidden';
         element.querySelector('#input-item-title').focus();
         body.querySelector('#button-toggle-item').textContent = 'highlight_off';
     }
     static setAddItemDisplayOn(element) {
-        isAddTodoVisible = false;
-        element.style.visibility = 'visible';
+        isAddTodoVisible = true;
+        element.classList.remove('hidden');
+//        element.style.visibility = 'visible';
         body.querySelector('#button-toggle-item').textContent = 'add_circle_outline';
     }
 
