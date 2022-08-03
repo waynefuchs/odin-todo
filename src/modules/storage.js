@@ -2,6 +2,7 @@ import List from "./list";
 import Item from "./item";
 import ID from './id';
 
+const STORAGE_PROJECT = "todo-project";
 const STORAGE_LIST = "todo-list";
 const STORAGE_ID = "todo-id";
 const DEBUG_ON = false;

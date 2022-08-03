@@ -4,6 +4,7 @@ import Storage from './storage';
 const body = document.querySelector("body");
 
 let isAddTodoVisible = false;
+let isAddProjectVisible = false;
 let messageList = [];
 let messageID = 0;
 
@@ -11,7 +12,7 @@ export default class UI {
     static loadSite() {
         UI.createHeading('h1', 'todo');
         UI.createMessageContainer();
-        UI.createAddItemToggle();
+        UI.createToggleGroup();
         UI.createContainerTodo();
         UI.createContainerDone();
         UI.loadList();
@@ -53,20 +54,41 @@ export default class UI {
         const button = document.querySelector('#button-toggle-item');
         button.classList.toggle('cancel');
         const addItem = body.querySelector('#add-item-toggle');
-        if(isAddTodoVisible) UI.setAddItemDisplayOff(addItem);
-        else UI.setAddItemDisplayOn(addItem);
+        if(isAddTodoVisible) UI.setAddItemHidden(addItem);
+        else UI.setAddItemVisible(addItem);
     }
-    static setAddItemDisplayOff(element) {
-        isAddTodoVisible = false;
-        element.classList.add('hidden');
-        body.querySelector('#button-toggle-item').textContent = 'highlight_off';
-    }
-    static setAddItemDisplayOn(element) {
+    static setAddItemVisible(element) {
         isAddTodoVisible = true;
         element.classList.remove('hidden');
         element.querySelector('#input-item-title').focus();
         body.querySelector('#button-toggle-item').textContent = 'add_circle_outline';
     }
+    static setAddItemHidden(element) {
+        isAddTodoVisible = false;
+        element.classList.add('hidden');
+        body.querySelector('#button-toggle-item').textContent = 'highlight_off';
+    }
+
+    // Handle Toggling the Add Project Input and Div
+    static toggleAddProject() {
+        const button = document.querySelector('#button-toggle-project');
+        button.classList.toggle('cancel');
+        const addItem = body.querySelector('#add-project-toggle');
+        if(isAddProjectVisible) UI.setAddProjectVisible(addItem);
+        else UI.setAddProjectHidden(addItem);
+    }
+    static setAddProjectVisible(element) {
+        isAddProjectVisible = true;
+        element.classList.remove('hidden');
+        element.querySelector('#input-project-name').focus();
+        body.querySelector('#button-toggle-project').textContent = 'folder_open';
+    }
+    static setAddProjectHidden(element) {
+        isAddProjectVisible = false;
+        element.classList.add('hidden');
+        body.querySelector('#button-toggle-project').textContent = 'create_new_folder';
+    }
+
 
     static createMessageContainer() {
         const messageDiv = document.createElement('div');
@@ -165,13 +187,15 @@ export default class UI {
         if(Storage.deleteItem(id)) itemElement.remove();
     }
 
-    static createAddItemToggle() {
-        const addItemMainDiv = document.createElement('div');
-        addItemMainDiv.id = 'add-item';
-        
+    static createToggleAddItem() {
+        // Add Item
         const toggleDiv = document.createElement('div');
         toggleDiv.id = 'add-item-toggle';
         toggleDiv.classList.add('hidden');
+
+        const label = document.createElement('label');
+        label.htmlFor = 'input-item-title';
+        label.textContent = "Item Title";
 
         const inputTextItemTitle = document.createElement('input');
         inputTextItemTitle.id = 'input-item-title';
@@ -181,10 +205,9 @@ export default class UI {
         });
 
         const buttonAdd = document.createElement('button');
-        buttonAdd.id = 'button-add';
         buttonAdd.textContent = "Add";
         buttonAdd.addEventListener('click', UI.addItemByTitle);
-        
+
         // Button to show and hide the #add-item-toggle (input / button)
         const buttonToggle = document.createElement('button');
         buttonToggle.id = "button-toggle-item";
@@ -192,11 +215,60 @@ export default class UI {
         buttonToggle.textContent = 'add_circle_outline';
         buttonToggle.addEventListener('click', UI.toggleAddItem);
 
+        toggleDiv.append(label);
         toggleDiv.append(inputTextItemTitle);
         toggleDiv.append(buttonAdd);
-        addItemMainDiv.append(toggleDiv);
-        addItemMainDiv.append(buttonToggle);
-        body.append(addItemMainDiv);
+
+        return {toggleDiv, buttonToggle};
+    }
+
+    static createToggleAddProject() {
+        const toggleDiv = document.createElement('div');
+        toggleDiv.id = 'add-project-toggle';
+        // toggleDiv.classList.add('hidden');
+
+        const label = document.createElement('label');
+        label.htmlFor = 'input-project-name';
+        label.textContent = "Project Name";
+
+        const inputTextProjectTitle = document.createElement('input');
+        inputTextProjectTitle.id = 'input-project-name';
+        inputTextProjectTitle.type = 'text';
+        // inputTextProjectTitle.addEventListener('keydown', (e) => {
+        //     if(e.key == 'Enter') UI.addProjectByName();
+        // });
+
+        const buttonAdd = document.createElement('button');
+        buttonAdd.textContent = "Add";
+        // buttonAdd.addEventListener('click', UI.addProjectByName);
+
+        // Button to show and hide the #add-item-toggle (input / button)
+        const buttonToggle = document.createElement('button');
+        buttonToggle.id = "button-toggle-project";
+        buttonToggle.classList.add('material-icons');
+        buttonToggle.textContent = 'create_new_folder';
+        buttonToggle.addEventListener('click', UI.toggleAddProject);
+
+        toggleDiv.append(label);
+        toggleDiv.append(inputTextProjectTitle);
+        toggleDiv.append(buttonAdd);
+
+        return {toggleDiv, buttonToggle};
+    }
+
+    static createToggleGroup() {
+        const toggleGroup = document.createElement('div');
+        toggleGroup.id = 'add-item';
+
+        const toggleAddItem = UI.createToggleAddItem();
+        const toggleAddProject = UI.createToggleAddProject();
+        
+        toggleGroup.append(toggleAddItem.toggleDiv);
+        toggleGroup.append(toggleAddProject.toggleDiv);
+        toggleGroup.append(toggleAddProject.buttonToggle);
+        toggleGroup.append(toggleAddItem.buttonToggle);
+
+        body.append(toggleGroup);
     }
 
     static clearInputTextAddItem() {
