@@ -1,9 +1,9 @@
 import Storage from './storage';
+import UIAddItem from './ui/add-item';
 // import Item from './item';
 
 const body = document.querySelector("body");
 
-let isAddTodoVisible = false;
 let isAddProjectVisible = false;
 let messageList = [];
 let messageID = 0;
@@ -12,7 +12,9 @@ export default class UI {
     static loadSite() {
         UI.createHeading('h1', 'todo');
         UI.createMessageContainer();
+
         UI.createToggleGroup();
+
         UI.createContainerTodo();
         UI.createContainerDone();
         UI.loadList();
@@ -25,7 +27,7 @@ export default class UI {
             else if(isAddTodoVisible) UI.toggleAddItem();
         } else if(e.key === 'n' && !isAddTodoVisible) {
             e.preventDefault();
-            UI.toggleAddItem();
+            UIAddItem.toggle();
         }
         
         //else console.log(e.key);
@@ -49,25 +51,8 @@ export default class UI {
         body.append(doneElement);
     }
 
-    // Handle Toggling the Add Item Input and Div
-    static toggleAddItem() {
-        const button = document.querySelector('#button-toggle-item');
-        button.classList.toggle('cancel');
-        const addItem = body.querySelector('#add-item-toggle');
-        if(isAddTodoVisible) UI.setAddItemHidden(addItem);
-        else UI.setAddItemVisible(addItem);
-    }
-    static setAddItemVisible(element) {
-        isAddTodoVisible = true;
-        element.classList.remove('hidden');
-        element.querySelector('#input-item-title').focus();
-        body.querySelector('#button-toggle-item').textContent = 'add_circle_outline';
-    }
-    static setAddItemHidden(element) {
-        isAddTodoVisible = false;
-        element.classList.add('hidden');
-        body.querySelector('#button-toggle-item').textContent = 'highlight_off';
-    }
+
+    
 
     // Handle Toggling the Add Project Input and Div
     static toggleAddProject() {
@@ -187,41 +172,6 @@ export default class UI {
         if(Storage.deleteItem(id)) itemElement.remove();
     }
 
-    static createToggleAddItem() {
-        // Add Item
-        const toggleDiv = document.createElement('div');
-        toggleDiv.id = 'add-item-toggle';
-        toggleDiv.classList.add('hidden');
-
-        const label = document.createElement('label');
-        label.htmlFor = 'input-item-title';
-        label.textContent = "Item Title";
-
-        const inputTextItemTitle = document.createElement('input');
-        inputTextItemTitle.id = 'input-item-title';
-        inputTextItemTitle.type = 'text';
-        inputTextItemTitle.addEventListener('keydown', (e) => {
-            if(e.key == 'Enter') UI.addItemByTitle();
-        });
-
-        const buttonAdd = document.createElement('button');
-        buttonAdd.textContent = "Add";
-        buttonAdd.addEventListener('click', UI.addItemByTitle);
-
-        // Button to show and hide the #add-item-toggle (input / button)
-        const buttonToggle = document.createElement('button');
-        buttonToggle.id = "button-toggle-item";
-        buttonToggle.classList.add('material-icons');
-        buttonToggle.textContent = 'add_circle_outline';
-        buttonToggle.addEventListener('click', UI.toggleAddItem);
-
-        toggleDiv.append(label);
-        toggleDiv.append(inputTextItemTitle);
-        toggleDiv.append(buttonAdd);
-
-        return {toggleDiv, buttonToggle};
-    }
-
     static createToggleAddProject() {
         const toggleDiv = document.createElement('div');
         toggleDiv.id = 'add-project-toggle';
@@ -260,7 +210,7 @@ export default class UI {
         const toggleGroup = document.createElement('div');
         toggleGroup.id = 'add-item';
 
-        const toggleAddItem = UI.createToggleAddItem();
+        const toggleAddItem = UIAddItem.create();
         const toggleAddProject = UI.createToggleAddProject();
         
         toggleGroup.append(toggleAddItem.toggleDiv);
@@ -271,27 +221,9 @@ export default class UI {
         body.append(toggleGroup);
     }
 
-    static clearInputTextAddItem() {
-        const inputTextItemTitle = document.querySelector('#input-item-title');
-        inputTextItemTitle.value = "";
-    }
-
     static notify(message) {
         UI.createMessage(message);
     }
-
-    static addItemByTitle(e) {
-        const inputTextItemTitle = document.querySelector('#input-item-title');
-        const title = inputTextItemTitle.value;
-        const item = Storage.addItemByTitle(title);
-        UI.clearInputTextAddItem();
-        if(!item) {
-            UI.notify(`Adding ${title} failed.`);
-            return;
-        }
-        UI.createItem(item);
-    };
-
 
     static loadList() {
         const list = Storage.load();
