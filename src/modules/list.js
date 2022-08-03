@@ -1,53 +1,58 @@
 import Item from './item';
-
-let todoList = [];
+import ID from './id';
 
 export default class List {
-    static contains(title) {
+    todoList;
+
+    constructor(initID) {
+        this.todoList = [];
+    }
+
+    contains(title) {
         return todoList.find(i => title === i.getTitle()) !== undefined;
     }
 
-    static add(item) {
+    add(item) {
         if(List.contains(item.getTitle())) return false;
         todoList.push(item);
         return item;
     }
 
-    static deleteItemByName(name) {
+    deleteItemByName(name) {
         todoList = todoList.filter(i => i.getTitle() !== name);
     }
 
-    static deleteItemByID(id) {
+    deleteItemByID(id) {
         const item = todoList.find(i => i.getID() === id) ?? false;
         if(item) todoList = todoList.filter(i => i.getID() !== id);
         return item;
     }
 
-    static getItemByTitle(title) {
+    getItemByTitle(title) {
         return todoList.find(i => i.getTitle() === title);
     }
 
-    static getItemByID(id) {
+    getItemByID(id) {
         return todoList.find(i => i.getID() === id);
     }
 
-    static contains(name) {
+    contains(name) {
         return todoList.some(i => i.getTitle() === name);
     }
 
-    static clear () {
+    clear () {
         todoList = [];        
     }
 
-    static getItems() {
+    getItems() {
         return todoList;
     }
 
-    static getNotDoneItems() {
+    getNotDoneItems() {
         return todoList.filter(i => i.done === false);
     }
 
-    static getDoneItems() {
+    getDoneItems() {
         return todoList.filter(i => i.done === true);
     }
 }

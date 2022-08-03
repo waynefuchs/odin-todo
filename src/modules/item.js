@@ -1,7 +1,6 @@
 export default class Item {
     id;
     title;
-    project;
     done;
     originDate;
     dueDate;
@@ -12,14 +11,6 @@ export default class Item {
 
     getTitle() {
         return this.title;
-    }
-
-    setProject(projectID) {
-        this.projectID = projectID;
-    }
-
-    getProject() {
-        return this.projectID;
     }
 
     setDueDate(dueDate) {

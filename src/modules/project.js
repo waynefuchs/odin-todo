@@ -13,7 +13,10 @@ export default class Project {
         projectID = id;
     }
 
-    // Project Methods
+    static add(projectID, item) {
+        const list = projectList.find(
+    }
+
     static getProjects() {
         return projectList;
     }
