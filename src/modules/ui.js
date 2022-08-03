@@ -23,13 +23,20 @@ export default class UI {
     }
 
     static listenForKeyboardEvents(e) {
-        if(e.key === "Escape") {
-            if(messageList.length > 0) UI.deleteMessage.bind(messageList[0])();
-            else if(UIAddItem.isVisible()) UIAddItem.toggle();
-        } else if(e.key === 'n' && !isAddTodoVisible) {
+        if(e.key === "Escape") 
+            UI.handleEscapeKeyPress();
+        else if(e.key === 'n' && !UIAddItem.isVisible()) {
             e.preventDefault();
             UIAddItem.toggle();
         }
+    }
+
+    static handleEscapeKeyPress() {
+        if(messageList.length > 0) 
+            UI.deleteMessage.bind(messageList[0])();
+
+        else if(UIAddItem.isVisible()) 
+            UIAddItem.toggle();
     }
 
     static createHeading(type, message) {
