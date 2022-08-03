@@ -55,13 +55,13 @@ export default class UIAddItem {
         isAddTodoVisible = true;
         element.classList.remove('hidden');
         element.querySelector('#input-item-title').focus();
-        body.querySelector('#button-toggle-item').textContent = 'add_circle_outline';
+        body.querySelector('#button-toggle-item').textContent = 'highlight_off';
     }
-
+    
     static setHidden(element) {
         isAddTodoVisible = false;
         element.classList.add('hidden');
-        body.querySelector('#button-toggle-item').textContent = 'highlight_off';
+        body.querySelector('#button-toggle-item').textContent = 'add_circle_outline';
     }
     
     static addItem(e) {
@@ -82,7 +82,7 @@ export default class UIAddItem {
     }
 
     static isVisible() {
-        return ;
+        return !toggleElement.classList.contains('hidden');
     }
 }
 
