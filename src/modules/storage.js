@@ -4,8 +4,9 @@ import Item from "./item";
 import ID from './id';
 
 const STORAGE_PROJECT = "todo-project";
-const STORAGE_LIST = "todo-list";
-const STORAGE_ID_ITEM = "todo-id";
+const STORAGE_ID_ITEM = "todo-id-item";
+const STORAGE_ID_LIST = "todo-id-list";
+const STORAGE_ID_PROJECT = "todo-id-project";
 const DEBUG_ON = false;
 
 let db = window['localStorage'];
@@ -19,7 +20,7 @@ export default class Storage {
             console.error("Attempted to save during load process.");
             return;
         }
-        // db.setItem(STORAGE_LIST, JSON.stringify(List.getItems()));
+        db.setItem(STORAGE_LIST, JSON.stringify(List.getItems()));
         db.setItem(STORAGE_ID_ITEM, ID.get());
         Storage.logStorage("Save Complete");   // debug
     }
@@ -27,7 +28,7 @@ export default class Storage {
     static load() {
         isLoading = true;
         ID.set(db.getItem(STORAGE_ID_ITEM));
-        const json = JSON.parse(db.getItem(STORAGE_LIST));
+        // const json = JSON.parse(db.getItem(STORAGE_LIST));
         Storage.loadJSONArray(json);
         isLoading = false;
         Storage.logStorage("Load Complete");   // debug

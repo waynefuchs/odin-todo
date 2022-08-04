@@ -5,15 +5,19 @@ export default class ID {
         this._id = initID;
     }
 
-    static getNext() {
+    getNext() {
         return _id++;
     }
 
-    static set(id) {
+    set(id) {
         _id = id;
     }
 
-    static get() {
+    get() {
         return _id;
+    }
+
+    toJSON() {
+        return this._id;
     }
 };
