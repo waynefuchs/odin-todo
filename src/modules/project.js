@@ -1,42 +1,17 @@
-let projectList = [];
-let projectID = 0;
+import Container from "./container";
 
 export default class Project {
-    // ID Manipulation
-    static getID() {
-        return projectID;
-    }
-    static getNextID() {
-        return projectID++;
-    }
-    static setID(id) {
-        projectID = id;
-    }
+    id;
+    name;
+    list;
 
-    static add(projectID, item) {
-        const list = projectList.find(
-    }
-
-    static getProjects() {
-        return projectList;
-    }
-
-    static createProject(id, name) {
-        projectList.push({id, name});
-    }
-
-    // returns number of projects deleted
-    static deleteProject(id) {
-        const oldLength = projectList.length;
-        projectList = projectList.filter(o => o.id === id);
-        return oldLength - projectList.length;
-    }
-
-    static deleteProjectByName(name) {
-        return deleteProject(Project.getID(name));
-    }
-
-    static getID(name) {
-        return projects.find(o => o.name === name);
+    constructor(id, name, list=null) {
+        let project = new Container();
+        if(id === null || id === undefined) return null;
+        if(name === null || name === undefined) return null;
+        project.id = id;
+        project.name = name;
+        project.list = list || new Container();
+        return project;
     }
 }
