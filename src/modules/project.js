@@ -1,6 +1,6 @@
 import Container from "./container";
 
-export default class Projects {
+export default class Project {
     constructor(projectList) {
         const container = new Container();
 
