@@ -1,20 +1,24 @@
 export default class ID {
     _id = 0;
 
-    constructor(initID) {
-        this._id = initID;
+    constructor(initID=0) {
+        this._id = initID ?? 0;
     }
 
     getNext() {
-        return _id++;
+        return this._id++;
     }
 
     set(id) {
-        _id = id;
+        this._id = id;
     }
 
     get() {
-        return _id;
+        return this._id;
+    }
+
+    toString() {
+        return this._id.toString();
     }
 
     toJSON() {

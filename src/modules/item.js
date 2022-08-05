@@ -37,6 +37,16 @@ export default class Item {
         return this.done;
     }
 
+    toJSON() {
+        return {
+            id,
+            title,
+            done,
+            originDate,
+            dueDate
+        };
+    }
+
     constructor(jsonItem) {
         // id gets created based on session
         this.id = jsonItem.id ?? -1;

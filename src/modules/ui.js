@@ -10,17 +10,26 @@ let messageID = 0;
 
 export default class UI {
     static loadSite() {
-        UI.createMessageContainer();
+        // UI.createMessageContainer();
 
-        UI.createHeading('h1', 'todo');
+        // UI.createHeading('h1', 'todo');
 
-        UI.createToggleGroup();
+        // UI.createToggleGroup();
 
-        UI.createContainerTodo();
-        UI.createContainerDone();
-        UI.loadList();
-        document.addEventListener('keydown', UI.listenForKeyboardEvents);
+        // UI.createContainerTodo();
+        // UI.createContainerDone();
+
+        UI.load();
+        // document.addEventListener('keydown', UI.listenForKeyboardEvents);
     }
+
+    static load() {
+        const projects = Storage.load();
+        // for(const item of list) {
+        //     UI.createItem(item);
+        // }
+    }
+
 
     static listenForKeyboardEvents(e) {
         if(e.key === "Escape") 
@@ -172,12 +181,4 @@ export default class UI {
     static notify(message) {
         UI.createMessage(message);
     }
-
-    static loadList() {
-        const list = Storage.load();
-        for(const item of list) {
-            UI.createItem(item);
-        }
-    }
-
 }

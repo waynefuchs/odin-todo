@@ -2,7 +2,7 @@ export default class Container {
     list;
 
     constructor() {
-        list = [];
+        this.list = [];
     }
 
     // returns: true or false
