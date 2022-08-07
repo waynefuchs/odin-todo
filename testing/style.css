@@ -1,0 +1,25 @@
+.dragging {
+    /* float: right;
+    right: -1000px;
+    position: relative; */
+    transition: 0.2s;
+    transform: scaleY(0);
+    background-color: orange;
+}
+
+.dragable {
+    transition: 0.2s;
+    transform: scaleY(1);
+}
+
+.over {
+    background-color: aqua;
+}
+
+.moveAbove {
+    border-top: 5px solid black;
+}
+
+.moveBelow {
+    border-bottom: 5px solid black;
+}
