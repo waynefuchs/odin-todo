@@ -9,6 +9,22 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="project-general" class="project-header">
+        <h2 class="grid-title">TODO</h2>
+        <div class="grid-button">
+            <button class="material-icons">create_new_folder</button>
+            <button class="material-icons">add_task</button>    
+        </div>
+        <div id="hide-add-project" class="hidden input-toggle grid-toggle">
+            <input type="text" name="add-project" id="add-project" placeholder="Add Project">
+            <button class="material-icons cancel">cancel</button>
+        </div>
+        <div id="hide-add-item" class="hidden input-toggle grid-toggle">
+            <input type="text" name="add-project" id="add-project" placeholder="Add Item">
+            <button class="material-icons cancel">cancel</button>
+        </div>
+    </div>
+
     <div id="project-a" class="dropzone">
         <div id="item-0" class="draggable">Hello0</div>
         <div id="item-1" class="draggable">Hello1</div>
