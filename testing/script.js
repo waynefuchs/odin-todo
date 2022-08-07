@@ -1,4 +1,4 @@
-elements = document.querySelectorAll('.dragable');
+elements = document.querySelectorAll('.draggable');
 for(const element of elements) {
     element.draggable = true;
     element.addEventListener('dragstart', dragStart);
