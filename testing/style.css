@@ -1,8 +1,8 @@
-/* .dragging {
+.dragging {
     transition: 0.2s;
     transform: scaleY(0);
     background-color: orange;
-} */
+}
 
 .draggable {
     /* transition: 0.2s;
@@ -13,7 +13,7 @@
     cursor: move;
 }
 
-.drop-container {
+.dropzone {
     background-color: #333;
     padding: 1rem;
     margin-top: 1rem;
@@ -21,12 +21,4 @@
 
 .over {
     background-color: aqua;
-}
-
-.moveAbove {
-    border-top: 5px solid black;
-}
-
-.moveBelow {
-    border-bottom: 5px solid black;
 }
