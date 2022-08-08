@@ -1,14 +1,18 @@
 import Container from "./container";
 
-export default class Project {
-    constructor(projectList) {
-        const container = new Container();
+// A collection of "Item" objects
+export default class Project extends Container {
+    id;
+    name;
 
-        if(projectList === null) projectList = [];
+    constructor(project) {
+        super();
+
+        if(project === null) project = [];
         console.log("PROJECT CONSTRUCTOR");
-        console.dir(projectList);
+        console.dir(project);
 
-        for(project in projectList) {
+        for(item in project) {
             const addSuccess = container.list.add(project);
         }
 
@@ -19,5 +23,25 @@ export default class Project {
         // project.list = list || new Container();
 
         return container;
+    }
+
+    setID(id) {
+        this.id = id;
+    }
+
+    getID() {
+        return this.id;
+    }
+
+    setName(name) {
+        this.name = name;
+    }
+
+    getName() {
+        return this.name;
+    }
+
+    getHTMLID(prefix, hash=false) {
+        return (hash ? '#' : '') + prefix + this.id;
     }
 }

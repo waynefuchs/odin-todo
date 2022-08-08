@@ -1,7 +1,8 @@
 import Container from "./container";
 import Project from "./project";
 
-export default class ProjectList extends Container {
+// A collection of "Project" objects
+export default class TODO extends Container {
     constructor(projectList) {
         super();
 
