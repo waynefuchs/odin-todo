@@ -67,11 +67,19 @@
     padding: 0;
     margin: 0;
     grid-area: title;
+    font-size: 2rem;
+    color: var(--c-light);
+    background-color: var(--c-dark);
+    border: none;
 }
 
 .grid-button {
     grid-area: button;
     justify-self: end;
+}
+
+.pointer {
+    cursor: default;
 }
 
 /* Don't use empty rule-sets

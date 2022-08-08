@@ -4,18 +4,36 @@ import Message from './message';
 
 export default class ProjectHeader {
     static create(project=null) {
-        if(project === null) project = new Project();
+        let isDefaultProject = false;
+        if(project === null) {
+            isDefaultProject = true;
+            project = new Project();
+        }
 
         // main div
         let div = document.createElement('div');
         div.id = project.getHTMLID('project-header');
         div.classList.add('project-header');
         
-        // project title
-        let name = document.createElement('h2');
-        name.classList.add('grid-title');
-        name.textContent = project.getName();
-        div.append(name);
+        // project title (used to be h2)
+        let projectName = document.createElement('input');
+        projectName.classList.add('grid-title');
+        projectName.value = project.getName();
+        // projectName.addEventListener('focus', (event) => {
+        //     console.log("gained focus");
+        // });
+        if(!isDefaultProject)
+            projectName.addEventListener('blur', (event) => {
+                console.log("lost focus");
+            });
+        else {
+            projectName.classList.add('pointer');
+            projectName.addEventListener('focus', (event) => {
+                projectName.blur();
+            });
+        }
+        //projectName.readOnly = 'readonly';
+        div.append(projectName);
         
         // Toggle Button Group
         ProjectHeader.createToggleButtonGroup(div, project);
