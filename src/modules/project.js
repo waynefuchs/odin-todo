@@ -5,24 +5,17 @@ export default class Project extends Container {
     id;
     name;
 
-    constructor(project) {
+    constructor(projectJSON=null) {
         super();
 
-        if(project === null) project = [];
-        console.log("PROJECT CONSTRUCTOR");
-        console.dir(project);
+        if(projectJSON === null) projectJSON = {}
+        this.id = projectJSON.id ?? "";
+        this.name = projectJSON.name ?? "TODO";
 
-        for(item in project) {
-            const addSuccess = container.list.add(project);
+        for(itemData in projectJSON.list ?? []) {
+            const item = new Item(itemData);
+            const addSuccess = this.list.add(item);
         }
-
-        // if(id === null || id === undefined) return null;
-        // if(name === null || name === undefined) return null;
-        // project.id = id;
-        // project.name = name;
-        // project.list = list || new Container();
-
-        return container;
     }
 
     setID(id) {

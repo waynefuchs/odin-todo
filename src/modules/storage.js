@@ -1,39 +1,47 @@
 import ID from './id';
-import ProjectList from "./todo";
+import TODO from './todo';
 
-const STORAGE_DATA = "todo-data";
+// Constants
 const STORAGE_ID_ITEM = "todo-id-item";
-const STORAGE_ID_PROJECTS = "todo-id-projects";
+const STORAGE_ID_PROJECT = "todo-id-project";
+const STORAGE_DATA = "todo-data";
 const DEBUG = true;
 
+// IDs
 let idItem;
 let idProjects;
-let projectList;
 
+// Data
+let todo;
+
+// DB Access
 let db = window['localStorage'];
 let isLoading = false;
 
 export default class Storage {
     static load() {
+        // Disable Saving
         Storage.disableSave();
 
         // Every ID needs a unique Identifier
         idItem = new ID(db.getItem(STORAGE_ID_ITEM));
 
         // Every Project needs a unique Identifier
-        idProjects = new ID(db.getItem(STORAGE_ID_PROJECTS));
+        idProjects = new ID(db.getItem(STORAGE_ID_PROJECT));
 
         // Load in JSON data from browser storage,
         // and send the resulting parsed object to Projects
         const jsonData = db.getItem(STORAGE_DATA); 
-        projectList = new ProjectList(JSON.parse(jsonData));
+        todo = new TODO(JSON.parse(jsonData));
 
+        // Enable Saving
         Storage.enableSave();
 
+        // Write Debug Info if applicable
         Storage.debugMemory();
         Storage.debugDB();
 
-        return projectList;
+        return todo;
     }
 
     static disableSave() {
@@ -54,6 +62,11 @@ export default class Storage {
 
         Storage.debugDB();
     }
+
+    static hasProject(name) {
+
+    }
+
 
     // FIX
     static delegateAddItem(title) {
@@ -81,16 +94,18 @@ export default class Storage {
 
     // DEBUG
     static debugDB() {
+        if(!DEBUG) return;
         console.log('DEBUG DB:\n' +
                     `\tITEM ID: ${db.getItem(STORAGE_ID_ITEM)}\n` +
-                    `\tPROJECT ID: ${db.getItem(STORAGE_ID_PROJECTS)}\n` +
+                    `\tPROJECT ID: ${db.getItem(STORAGE_ID_PROJECT)}\n` +
                     `\tSTORAGE: ${db.getItem(STORAGE_DATA)}`);
     }
 
     static debugMemory() {
+        if(!DEBUG) return;
         console.log('DEBUG MEMORY:\n' +
                     `\tITEM ID: ${idItem}\n` +
                     `\tPROJECT ID: ${idProjects}\n`);
-        console.dir(projectList);
+        console.dir(todo);
     }
 }

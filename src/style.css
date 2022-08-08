@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 @font-face {
     font-family: 'Material Icons';
     font-style: normal;
@@ -5,19 +6,6 @@
     src: local('MaterialIcons-Regular'),
       url(./fonts/MaterialIcons-Regular.ttf) format('truetype');
 }
-
-* {
-    /* disable selection */
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror */
-    -moz-user-select: none; /* Old version of Firefox */
-    -ms-user-select: none; /* Internet Explorer or Edge */
-    user-select: none; /* All modern browsers */
-
-    color: white;
-}
-
 .material-icons {
     font-family: 'Material Icons';
     font-weight: normal;
@@ -30,7 +18,6 @@
     word-wrap: normal;
     white-space: nowrap;
     direction: ltr;
-    color: white;
   
     /* Support for all WebKit browsers. */
     -webkit-font-smoothing: antialiased;
@@ -44,83 +31,139 @@
     font-feature-settings: 'liga';
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    background-color: #222222;
+* {
+    font-family: 'Inter', sans-serif;
 }
 
-.strikethrough {
-    text-decoration: line-through;
+:root {
+    --c1-light: #bfa7f2;
+    --c1-dark: #323240;
+    --c2-light: #dcf235;
+    --c2-dark: #67733D;
+    --c-dark: var(--c1-dark);
+    --c-gray: #636573;
+    --c-light: #eee;
+    --pad: 0.5rem;
+    --gap: 0.5rem;
 }
 
-#todo,
-#done {
-    font-size: 2rem;
-    background-color: grey;
+.project-header {
+    background-color: var(--c1-dark);
+    color: var(--c-light);
+    padding: var(--pad);
     display: grid;
-    grid-auto-flow: row;
-}
-
-#done {
-    background-color: #444444;
-}
-
-#add-item {
-    display: grid;
-    grid-template-columns: 1fr 1fr auto auto;
-    padding: 1vh 1vw;
-    gap: 1vw;
-}
-#add-project-toggle,
-#add-item-toggle {
-    display: flex;
-    gap: 1vw;
+    column-gap: var(--gap);
     align-items: center;
+    grid-template-areas: 
+        "title button"
+        "toggle toggle";
 }
 
-.hidden {
-    visibility: hidden;
+.grid-toggle {
+    grid-area: toggle;
 }
 
-.message {
-    background-color: orange;
+.grid-title {
+    padding: 0;
+    margin: 0;
+    grid-area: title;
+}
+
+.grid-button {
+    grid-area: button;
+    justify-self: end;
+}
+
+/* Don't use empty rule-sets
+.toggle-button {
+
+} 
+*/
+
+.toggle-container {
     display: grid;
     grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 1vw;
-    padding: 1vh 1vw;
+    gap: var(--gap);
+    padding-top: var(--pad);
 }
 
-.item {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 1vw;
-    padding: 1vh 1vw;
+.toggle-container.hidden {
+    display: none;
 }
 
-input[type=checkbox] {
-    margin: 0;
-    padding: 0;
-}
-
-input {
-    color: black;
+input[type=text] {
+    height: 2rem;
+    border-radius: 1rem;
+    border: 2px solid var(--c-dark);
+    padding-left: var(--pad);
 }
 
 button {
-    background-color: green;
-    border-radius: 5px;
+    height: 2rem;
+    width: 2.5rem;
+    color: var(--c-gray);
+    background-color: var(--c-dark);
+    align-self: center; /* vertical */
+    text-align: center;
+    border: none;
 }
-button.cancel {
-    background-color: orange;
-}
-button.delete {
-    background-color: red;
+button::after{
+    content: attr(data-title);
+    position: absolute;
+    background: #444;
+    color: #fff;
+    left: 0;
+    top: 100%;
+    /* font-size: 12px; */
+    width: 100px;
+    padding: 5px;
+    border-radius: 4px;
+    transition: 300ms;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(15px);
+  }
+  button:hover::after{
+    opacity: 1;
+    transform: translateY(5px);
+  }
+
+
+button.armed {
+    color: var(--c2-light);
 }
 
-h1, h2, h3, h4, h5, h6 {
-    margin-block-start: 0.2em;
-    margin-block-end: 0.2em;
+button.cancel {
+    color: var(--c1-light);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.dragging {
+    transition: 0.2s;
+    transform: scaleY(0);
+}
+
+.draggable {
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid black;
+    cursor: move;
+}
+
+.dropzone {
+    background-color: #333;
+    padding: 1rem;
+    margin-top: 1rem;
 }

@@ -3,16 +3,15 @@ import Project from "./project";
 
 // A collection of "Project" objects
 export default class TODO extends Container {
-    constructor(projectList) {
+    constructor(todoList) {
         super();
 
-        if(projectList === null) projectList = [];
-        console.log("PROJECT CONSTRUCTOR");
-        console.dir(projectList);
+        if(todoList === null) todoList = [];
+        console.log("TODO CONSTRUCTOR");
+        console.dir(todoList);
 
-        for(project in projectList) {
-            const addSuccess = this.add(new Project(project));
-            // TODO: Error handling
+        for(project in todoList) {
+            this.add(new Project(project));
         }
     }
 }

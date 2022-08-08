@@ -1,16 +1,16 @@
 import Storage from './storage';
 import UIAddItem from './ui/add-item';
 import UIAddProject from './ui/add-project';
+import Message from './ui/message';
+import ProjectHeader from './ui/project-header';
 // import Item from './item';
 
 const body = document.querySelector("body");
 
-let messageList = [];
-let messageID = 0;
-
 export default class UI {
     static loadSite() {
-        // UI.createMessageContainer();
+        Message.createContainer();
+        ProjectHeader.create();
 
         // UI.createHeading('h1', 'todo');
 
@@ -64,42 +64,6 @@ export default class UI {
         const doneElement = document.createElement('div');
         doneElement.id = "done";
         body.append(doneElement);
-    }
-
-    static createMessageContainer() {
-        const messageDiv = document.createElement('div');
-        messageDiv.id = 'message';
-        body.append(messageDiv);
-    }
-
-    static createMessage(text) {
-        const containerDiv = document.querySelector('#message');
-
-        const messageDiv = document.createElement('div');
-        messageDiv.id = `message${messageID++}`;
-        messageDiv.classList.add('message');
-
-        const buttonDelete = document.createElement('button');
-        buttonDelete.id = `buttonDelete${messageDiv.id}`
-        buttonDelete.classList.add('material-icons');
-        buttonDelete.classList.add('cancel');
-        buttonDelete.textContent = "warning";
-        buttonDelete.addEventListener('click', UI.deleteMessage.bind(messageDiv));
-
-        const message = document.createElement('label');
-        message.htmlFor = buttonDelete.id;
-        message.textContent = text;
-
-        messageDiv.append(message);
-        messageDiv.append(buttonDelete);
-
-        containerDiv.append(messageDiv);
-        messageList.push(messageDiv);
-    }
-
-    static deleteMessage() {
-        messageList = messageList.filter(m => m.id !== this.id);
-        this.remove();
     }
 
     static createItem(item) {
@@ -176,9 +140,5 @@ export default class UI {
         toggleGroup.append(toggleAddItem.buttonToggle);
 
         body.append(toggleGroup);
-    }
-
-    static notify(message) {
-        UI.createMessage(message);
     }
 }
