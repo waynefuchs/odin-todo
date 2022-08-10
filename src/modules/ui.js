@@ -1,6 +1,4 @@
 import Storage from './storage';
-import UIAddItem from './ui/add-item';
-import UIAddProject from './ui/add-project';
 import Message from './ui/message';
 import ProjectHeader from './ui/project-header';
 // import Item from './item';

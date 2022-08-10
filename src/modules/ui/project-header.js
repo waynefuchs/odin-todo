@@ -1,6 +1,5 @@
 import Project from '../project';
 import Message from './message';
-// import ID from "../id";
 
 export default class ProjectHeader {
     static create(project=null) {
