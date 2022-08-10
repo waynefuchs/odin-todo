@@ -10,9 +10,9 @@ export default class ProjectHeader {
         }
 
         // main div
-        let div = document.createElement('div');
-        div.id = project.getHTMLID('project-header');
-        div.classList.add('project-header');
+        let headerDiv = document.createElement('div');
+        headerDiv.id = project.getHTMLID('project-header');
+        headerDiv.classList.add('project-header');
         
         // project title (used to be h2)
         let projectName = document.createElement('input');
@@ -32,13 +32,19 @@ export default class ProjectHeader {
             });
         }
         //projectName.readOnly = 'readonly';
-        div.append(projectName);
+        headerDiv.append(projectName);
         
         // Toggle Button Group
-        ProjectHeader.createToggleButtonGroup(div, project);
+        ProjectHeader.createToggleButtonGroup(headerDiv, project);
+
+        // Put the header div into the DOM
+        document.body.append(headerDiv);
         
-        const body = document.body;
-        body.append(div);
+        // Create a container to hold items
+        let projectDiv = document.createElement('div');
+        projectDiv.id = project.getHTMLID();
+        projectDiv.classList.add('project');
+        document.body.append(projectDiv);
     }
 
     static createToggleButtonGroup(parent, project) {

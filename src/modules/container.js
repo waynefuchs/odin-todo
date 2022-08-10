@@ -13,7 +13,9 @@ export default class Container {
 
     // return: success (true or false)
     add(object, key=null, value=null) {
-        if(this.contains(key, value)) return false;
+        // TODO: Check list for duplicate values
+        // this if statement doesn't do that lol
+        // if(this.contains(key, value)) return false;
         this.list.push(object);
         return true;
     }
@@ -35,5 +37,9 @@ export default class Container {
 
     erase() {
         this.list = [];
+    }
+
+    isEmpty() {
+        return this.list.length === 0;
     }
 }

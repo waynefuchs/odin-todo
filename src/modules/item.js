@@ -29,6 +29,10 @@ export default class Item {
         return this.id;
     }
 
+    getHTMLID() {
+        return `item-${this.id}`;
+    }
+
     setDone(done) {
         this.done = done;
     }
@@ -47,11 +51,15 @@ export default class Item {
         };
     }
 
+    // DEBUG METHOD
+    static makeJSON(id, title, done, originDate=null, dueDate=null) {
+        return JSON.stringify({id, title, done, originDate, dueDate});
+    }
+
     constructor(jsonItem) {
         // id gets created based on session
         this.id = jsonItem.id ?? -1;
         this.title = jsonItem.title ?? "";
-        this.project = jsonItem.project ?? 0;
         this.done = jsonItem.done ?? false;
         this.originDate = jsonItem.originDate ?? Date.now();
         this.dueDate = jsonItem.dueDate ?? false;

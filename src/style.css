@@ -68,6 +68,7 @@
     margin: 0;
     grid-area: title;
     font-size: 2rem;
+    font-weight: 700;
     color: var(--c-light);
     background-color: var(--c-dark);
     border: none;
@@ -110,7 +111,7 @@ button {
     height: 2rem;
     width: 2.5rem;
     color: var(--c-gray);
-    background-color: var(--c-dark);
+    background-color: transparent;
     align-self: center; /* vertical */
     text-align: center;
     border: none;
@@ -145,7 +146,20 @@ button.cancel {
     color: var(--c1-light);
 }
 
+.item {
+    background-color: var(--c-lightgray);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--gap);
+    padding-left: var(--pad);
+    padding-right: var(--pad);
+}
 
+.item>label {
+    padding-top: calc(var(--pad) * 2);
+    padding-bottom: calc(var(--pad) * 2);
+}
 
 
 
