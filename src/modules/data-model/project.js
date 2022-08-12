@@ -46,7 +46,6 @@ export default class Project extends Container {
     }
 
     getHTMLID(prefix='project-', hash=false) {
-        console.log((hash ? '#' : '') + prefix + this.id);
         return (hash ? '#' : '') + prefix + this.id;
     }
 }

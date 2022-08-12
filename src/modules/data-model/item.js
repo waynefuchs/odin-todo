@@ -30,8 +30,8 @@ export default class Item {
         return this.id;
     }
 
-    getHTMLID() {
-        return `item-${this.id}`;
+    getHTMLID(prefix='item-', hash=false) {
+        return (hash ? '#' : '') + prefix + this.id;
     }
 
     setDone(done) {
