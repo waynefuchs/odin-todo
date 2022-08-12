@@ -2,15 +2,17 @@ import Storage from '../storage';
 import Project from '../data-model/project';
 import Message from './message';
 import UIItem from './ui-item';
+import Log from '../log';
 
 export default class ProjectHeader {
     static create(project=null) {
+        Log.debug("UI.ProjectHeader()");
         let isDefaultProject = false;
 
         // Default project can happen if input is null (make a new one)
         // Or if the `project.id` is equal to 0.
         if(project === null) {
-            console.warn("null project passed into ProjectHeader.create()");
+            Log.debug("null project passed into ProjectHeader.create()");
             isDefaultProject = true;
             project = new Project();
         } else if(project.id === 0) {
@@ -55,6 +57,7 @@ export default class ProjectHeader {
     }
 
     static createToggleButtonGroup(parent, project) {
+        Log.debug("UI.createToggleBUttonGroup()");
         let containers = [];
 
         let div = document.createElement('div');
@@ -105,6 +108,7 @@ export default class ProjectHeader {
     }
 
     static createToggleSwitch(data) {
+        Log.debug("UI.createToggleSwitch()");
         let button = document.createElement('button');
         button.classList.add('material-icons');
         button.classList.add('toggle-button');
@@ -144,6 +148,7 @@ export default class ProjectHeader {
     }
 
     static createToggleContainer(data) {
+        Log.debug("UI.createToggleContainer()");
         // container
         let div = document.createElement('div');
         div.id = data.containerID;
@@ -176,6 +181,7 @@ export default class ProjectHeader {
     }
 
     static turnOffAllToggles(buttonIgnore=null) {
+        Log.debug("UI.turnOffAllToggles()");
         const toggleButtons = [...document.querySelectorAll('.toggle-button')];
 
         toggleButtons
@@ -194,6 +200,7 @@ export default class ProjectHeader {
 
 
     static DBCreateProject(name) {
+        Log.debug("UI.DBCreateProject()");
         try {
             if(name === "") throw "Project name can not be empty.";
             if(name === null) throw "Project name was null";    
@@ -204,6 +211,7 @@ export default class ProjectHeader {
     }
 
     static DBAddItem(projectID, title) {
+        Log.debug("UI.DBAddItem()");
         const project = Storage.getProject(projectID);
         const item = Storage.addItem(project, title);
         const uiItem = UIItem.create(item);
@@ -211,7 +219,6 @@ export default class ProjectHeader {
         projectContainer.append(uiItem);
 
         try {
-
             console.log(`Added Item '${title}' to ProjectID '${projectID}'`);
         } catch (error) {
             Message.notify(error);
