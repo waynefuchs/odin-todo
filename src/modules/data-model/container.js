@@ -16,7 +16,7 @@ export default class Container {
     }
 
     // return: success (true or false)
-    add(object, key=null, value=null) {
+    add(object, hasKey=null, equalToValue=null) {
         Log.debug("Container.add()");
         // TODO: Check list for duplicate values
         // this if statement doesn't do that lol

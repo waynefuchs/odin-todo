@@ -39,6 +39,7 @@ export default class Storage {
         // and send the resulting parsed object to Projects
         const jsonData = db.getItem(STORAGE_DATA); 
         const data = JSON.parse(jsonData);
+        console.dir(data);
         todo = new TODO(data);
 
         // Enable Saving

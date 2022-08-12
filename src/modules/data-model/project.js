@@ -20,12 +20,12 @@ export default class Project extends Container {
         this.name = project.name ?? "TODO";   // 'TODO' is the default project name
 
         // Add Items
-        for(itemData in project.list ?? []) {
+        for(const itemData in project.list ?? []) {
             const item = new Item(itemData);
             //TODO: Remove unused success value
             //TODO: Add notification on *why* the add failed
             //      Likely a good use case for pub-sub(?)
-            const addSuccess = this.list.add(item);
+            const addSuccess = this.add(item);
         }
 
         // TODO: REMOVE THIS DEBUG ITEM
@@ -62,10 +62,10 @@ export default class Project extends Container {
 
     toJSON() {
         Log.debug("Project.toJSON()");
-        return JSON.stringify({
+        return {
             id: this.id,
             name: this.name,
             list: this.list,
-        });
+        };
     }
 }

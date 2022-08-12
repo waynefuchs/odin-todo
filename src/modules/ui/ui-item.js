@@ -1,4 +1,5 @@
 import Item from "../data-model/item";
+import Log from "../log";
 
 export default class UIItem {
     // id;
@@ -7,6 +8,7 @@ export default class UIItem {
     // originDate;
     // dueDate;
     static create(item) {
+        Log.debug("UIItem.create()");
         const div = document.createElement('div');
         div.id = item.getHTMLID();
         div.classList.add('item');
@@ -56,14 +58,15 @@ export default class UIItem {
     }
 
     static dragSetData(event) {
+        Log.debug("UIItem.dragSetData()");
         event.dataTransfer.setData('text/plain', JSON.stringify({
                 id: event.target.id,
                 startProjectID: event.target.parentElement.id,
             }));
     }
 
-
     static dbDeleteItem(projectID, itemID) {
+        Log.debug("UIItem.dbDeleteItem()");
         console.log(`delete: ${projectID}:${itemID}`);
     }
 }

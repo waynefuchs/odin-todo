@@ -12,10 +12,8 @@ export default class TODO extends Container {
         if(data === null) data = [];
 
         // Iterate the project list and add the loaded items
-        for(const project in data) {
-            console.dir(data);
-            console.dir(project);
-            this.add(new Project(project));
+        for(const key in data.list) {
+            this.add(new Project(data.list[key]));
         }
 
         // Ensure a 'default' TODO exists.
@@ -24,8 +22,8 @@ export default class TODO extends Container {
 
     toJSON() {
         Log.debug("TODO.toJSON()");
-        return JSON.stringify({
-            list:this.list,
-        });
+        return {
+            list: this.list,
+        };
     }
 }

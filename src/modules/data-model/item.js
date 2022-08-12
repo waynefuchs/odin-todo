@@ -54,13 +54,22 @@ export default class Item {
 
     toJSON() {
         Log.debug("Item.toJSON()");
-        return JSON.stringify({
+        return {
             id: this.id,
             title: this.title,
             done: this.done,
             originDate: this.originDate,
             dueDate: this.dueDate
-        });
+        };
+    }
+
+    toString() {
+        return `ITEM:
+    ${this.id}
+    ${this.title}
+    ${this.done}
+    ${this.originDate}
+    ${this.dueDate}`;
     }
 
     constructor(item) {
@@ -72,6 +81,8 @@ export default class Item {
         this.done = item.done ?? false;
         this.originDate = item.originDate ?? Date.now();
         this.dueDate = item.dueDate ?? false;
+
+        console.log(this.toString());
     }
 
     static makeObject(id, title, done, originDate=null, dueDate=null) {
