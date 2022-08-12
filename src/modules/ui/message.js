@@ -1,4 +1,4 @@
-import ID from "../id";
+import ID from "../data-model/id";
 
 let messageList = [];
 let id = new ID();

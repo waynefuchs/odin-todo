@@ -51,17 +51,19 @@ export default class Item {
         };
     }
 
-    // DEBUG METHOD
+    // TODO: REMOVE THIS DEBUG METHOD
     static makeJSON(id, title, done, originDate=null, dueDate=null) {
         return JSON.stringify({id, title, done, originDate, dueDate});
     }
 
     constructor(jsonItem) {
+        const item = JSON.parse(jsonItem);
+
         // id gets created based on session
-        this.id = jsonItem.id ?? -1;
-        this.title = jsonItem.title ?? "";
-        this.done = jsonItem.done ?? false;
-        this.originDate = jsonItem.originDate ?? Date.now();
-        this.dueDate = jsonItem.dueDate ?? false;
+        this.id = item.id ?? -1;
+        this.title = item.title ?? "";
+        this.done = item.done ?? false;
+        this.originDate = item.originDate ?? Date.now();
+        this.dueDate = item.dueDate ?? false;
     }
 }

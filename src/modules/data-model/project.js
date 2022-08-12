@@ -9,11 +9,13 @@ export default class Project extends Container {
     constructor(projectJSON=null) {
         super();
 
-        if(projectJSON === null) projectJSON = {}
-        this.id = projectJSON.id ?? 0; // 'project-0' is equivalent to "NO PROJECT"
-        this.name = projectJSON.name ?? "TODO";
+        if(projectJSON === null) projectJSON = "{}";
+        const projectObject = JSON.parse(projectJSON);
 
-        for(itemData in projectJSON.list ?? []) {
+        this.id = projectObject.id ?? 0;            // 'project-0' is equivalent to "NO PROJECT"
+        this.name = projectObject.name ?? "TODO";   // 'TODO' is the default project name
+
+        for(itemData in projectObject.list ?? []) {
             const item = new Item(itemData);
             //TODO: Remove unused success value
             //TODO: Add notification on *why* the add failed
@@ -21,9 +23,9 @@ export default class Project extends Container {
             const addSuccess = this.list.add(item);
         }
 
+        // TODO: REMOVE THIS DEBUG ITEM
         if(this.isEmpty()) {
             this.add(new Item(Item.makeJSON(77, "hello there", false)));
-            console.log("FUCK FUCK FUCK YEAH");
         }
     }
 

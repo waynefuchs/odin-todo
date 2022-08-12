@@ -1,12 +1,22 @@
-import Project from '../project';
+import Project from '../data-model/project';
 import Message from './message';
 
 export default class ProjectHeader {
     static create(project=null) {
         let isDefaultProject = false;
+
+        // Default project can happen if input is null (make a new one)
+        // Or if the `project.id` is equal to 0.
         if(project === null) {
+            console.warn("null project passed into ProjectHeader.create()");
             isDefaultProject = true;
             project = new Project();
+        } else if(project.id === 0) {
+            isDefaultProject = true;
+            console.log("Processing default project.");
+        } else {
+            console.log("ProjectHeader.create() got:");
+            console.dir(project);
         }
 
         // main div
@@ -18,20 +28,21 @@ export default class ProjectHeader {
         let projectName = document.createElement('input');
         projectName.classList.add('grid-title');
         projectName.value = project.getName();
-        // projectName.addEventListener('focus', (event) => {
-        //     console.log("gained focus");
-        // });
-        if(!isDefaultProject)
-            projectName.addEventListener('blur', (event) => {
+
+        // Handle 'Project Title' renaming
+        if(!isDefaultProject) {
+            // Save the 'Project Title' when focus on the input box is lost
+            projectName.addEventListener('blur', (event) => {   // 'focus' is the opposite of 'blur'
+                // TODO: Implement Save
+                // 1. Check if the Project Name already exits (revert to what the value was before if so)
+                // 2. Write to 'db'
                 console.log("lost focus");
             });
-        else {
+        } else {
+            // Remove the ability to click into the input box
             projectName.classList.add('pointer');
-            projectName.addEventListener('focus', (event) => {
-                projectName.blur();
-            });
+            projectName.addEventListener('focus', (event) => projectName.blur());
         }
-        //projectName.readOnly = 'readonly';
         headerDiv.append(projectName);
         
         // Toggle Button Group
@@ -39,12 +50,6 @@ export default class ProjectHeader {
 
         // Put the header div into the DOM
         document.body.append(headerDiv);
-        
-        // Create a container to hold items
-        let projectDiv = document.createElement('div');
-        projectDiv.id = project.getHTMLID();
-        projectDiv.classList.add('project');
-        document.body.append(projectDiv);
     }
 
     static createToggleButtonGroup(parent, project) {
@@ -56,7 +61,7 @@ export default class ProjectHeader {
         // Toggle Button (Project)
         // This only appears as the first project (default::no project) on the page
         let projectContainer = null;
-        if(project.getID() === "") {
+        if(project.getID() === 0) {
             const projectToggleData = {
                 buttonID: 'button-ToggleProject',
                 containerID: 'container-ToggleProject',

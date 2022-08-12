@@ -1,5 +1,6 @@
-import ID from './id';
-import TODO from './todo';
+import ID from './data-model/id';
+import Project from './data-model/project';
+import TODO from './data-model/todo';
 
 // Constants
 const STORAGE_ID_ITEM = "todo-id-item";
