@@ -1,8 +1,8 @@
 import Storage from '../storage';
+import Item from "../data-model/item";
 import Message from './message';
 import ProjectHeader from './project-header';
 import ProjectBody from './project-body';
-// import Item from './item';
 
 const projects = Storage.load();
 
@@ -35,6 +35,7 @@ export default class UI {
         ProjectBody.create(project);
     }
 
+    // TODO: Get this working again
     static listenForKeyboardEvents(e) {
         if(e.key === "Escape") 
             UI.handleEscapeKeyPress();

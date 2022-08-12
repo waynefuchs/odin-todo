@@ -1,4 +1,4 @@
-import Item from "../data-model/item";// TODO: Remove this if not required
+import Item from "../data-model/item";
 
 export default class UIItem {
     // id;
@@ -26,7 +26,6 @@ export default class UIItem {
         const label = document.createElement('label');
         label.htmlFor = checkboxID;
         label.textContent = item.getTitle();
-        console.log(`TITLE TITLE: ${item.getTitle()}`);
 
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('material-icons');

@@ -1,5 +1,7 @@
 import Project from '../data-model/project';
+import Item from "../data-model/item";
 import Message from './message';
+import UIItem from './ui-item';
 
 export default class ProjectHeader {
     static create(project=null) {
@@ -201,10 +203,15 @@ export default class ProjectHeader {
         }
     }
 
-    static DBAddItem(projectID, name) {
+    static DBAddItem(projectID, title) {
         try {
+            const project = Storage.getProject(projectID);
+            const item = Storage.AddItem(project, title);
+            const uiItem = UIItem.create(item);
+            const projectContainer = document.querySelector(project.getHTMLID());
+            projectContainer.append(uiItem);
 
-            console.log(`Adding Item '${name}' to ProjectID '${projectID}'`);
+            console.log(`Added Item '${title}' to ProjectID '${projectID}'`);
         } catch (error) {
             Message.notify(error);
         }

@@ -1,5 +1,6 @@
 import Container from "./container";
 import Project from "./project";
+import Item from "./item";
 
 // A collection of "Project" objects
 export default class TODO extends Container {

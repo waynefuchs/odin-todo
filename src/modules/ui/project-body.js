@@ -1,4 +1,5 @@
 import Project from "../data-model/project";
+import Item from "../data-model/item";
 import UIItem from "./ui-item";
 
 export default class ProjectBody {

@@ -1,6 +1,7 @@
 import ID from './data-model/id';
-import Project from './data-model/project';
 import TODO from './data-model/todo';
+import Project from './data-model/project';
+import Item from "./data-model/item";
 
 // Constants
 const STORAGE_ID_ITEM = "todo-id-item";
@@ -64,16 +65,15 @@ export default class Storage {
         Storage.debugDB();
     }
 
-    static hasProject(name) {
-
+    static getProject(projectID) {
+        return todo.get('id', projectID);
     }
 
-
-    // FIX
-    static delegateAddItem(title) {
+    static addItem(project, title) {
         if(title.length <= 0) return false;
-        const jsonItem = Storage.makeJSONItem(title);
-        const item = Storage.loadJSONItem(jsonItem);
+        const jsonItem = Item.makeJSON(idItem.next(), title, false);
+        const item = new Item(jsonItem);
+        project.add(item);
         Storage.save();
         return item;
     }

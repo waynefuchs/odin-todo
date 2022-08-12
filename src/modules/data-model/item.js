@@ -1,3 +1,4 @@
+
 export default class Item {
     id;
     title;
@@ -51,11 +52,6 @@ export default class Item {
         };
     }
 
-    // TODO: REMOVE THIS DEBUG METHOD
-    static makeJSON(id, title, done, originDate=null, dueDate=null) {
-        return JSON.stringify({id, title, done, originDate, dueDate});
-    }
-
     constructor(jsonItem) {
         const item = JSON.parse(jsonItem);
 
@@ -66,4 +62,8 @@ export default class Item {
         this.originDate = item.originDate ?? Date.now();
         this.dueDate = item.dueDate ?? false;
     }
+
+    static makeJSON(id, title, done, originDate=null, dueDate=null) {
+        return JSON.stringify({id, title, done, originDate, dueDate});
+    }    
 }

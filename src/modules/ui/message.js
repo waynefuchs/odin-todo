@@ -1,4 +1,5 @@
 import ID from "../data-model/id";
+import Item from "../data-model/item";
 
 let messageList = [];
 let id = new ID();
@@ -14,7 +15,7 @@ export default class Message {
         const containerDiv = document.querySelector('#message');
 
         const messageDiv = document.createElement('div');
-        messageDiv.id = `message${id.getNext()}`;
+        messageDiv.id = `message${id.next()}`;
         messageDiv.classList.add('message');
 
         const buttonDelete = document.createElement('button');

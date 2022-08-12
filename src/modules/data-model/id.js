@@ -5,7 +5,7 @@ export default class ID {
         this._id = initID ?? 0;
     }
 
-    getNext() {
+    next() {
         return this._id++;
     }
 
