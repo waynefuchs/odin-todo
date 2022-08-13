@@ -3,6 +3,7 @@ import TODO from './data-model/todo';
 import Project from './data-model/project';
 import Item from "./data-model/item";
 import Log from './log';
+import Message from './ui/message';
 
 // Constants
 const STORAGE_ID_ITEM = "todo-id-item";
@@ -99,6 +100,30 @@ export default class Storage {
         project.add(item);
         Storage.save();
         return item;
+    }
+
+    static deleteItem(projectID, itemID) {
+        Log.debug("Storage.deleteItem()");
+        const project = todo.get('id', projectID);
+        project.del('id', itemID);
+        Storage.save();
+    }
+
+    static updateProjectName(project, title) {
+        if(todo.contains('name', title)) {
+            const existingProject = todo.get('name', title);
+            // check to see if the user clicked to update, then didn't make changes
+            // in other words: the existing project is this project
+            if(project === existingProject) {
+                console.log("update called but no change made");
+                return true;
+            }
+            Message.notify("The project already exists.");
+            return false;
+        }
+        project.setName(title);
+        Storage.save();
+        return true;
     }
 
     static factoryReset() {

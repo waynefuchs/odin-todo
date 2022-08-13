@@ -1,3 +1,4 @@
+import Storage from "../storage"
 import Item from "../data-model/item";
 import Log from "../log";
 
@@ -33,9 +34,9 @@ export default class UIItem {
         deleteButton.classList.add('material-icons');
         deleteButton.textContent = 'delete';
         deleteButton.addEventListener('click', (event) => {
-            const projectID = event.target.parentElement.parentElement.id;
+            const projectID = Number(event.target.parentElement.parentElement.id.slice(8));
             const itemID = item.getID();
-            UIItem.dbDeleteItem(projectID, itemID);
+            UIItem.DBDeleteItem(projectID, itemID);
             div.remove();
         });
 
@@ -65,8 +66,10 @@ export default class UIItem {
             }));
     }
 
-    static dbDeleteItem(projectID, itemID) {
+    static DBDeleteItem(projectID, itemID) {
         Log.debug("UIItem.dbDeleteItem()");
+        console.log("Here we go, mario!");
+        Storage.deleteItem(projectID, itemID);
         console.log(`delete: ${projectID}:${itemID}`);
     }
 }

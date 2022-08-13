@@ -70,6 +70,12 @@
     --gap: 0.5rem;
 }
 
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
 .project-header {
     background-color: var(--c1-dark);
     color: var(--c-light);
@@ -92,11 +98,12 @@
     padding: 0;
     margin: 0;
     /* grid-area: title; */
-    font-size: 2rem;
+    font-size: clamp(1rem, 2rem, 2rem);
     font-weight: 700;
     color: var(--c-light);
     background-color: var(--c-dark);
     border: none;
+    min-width: 50vw;
 }
 
 .grid-button {
@@ -141,27 +148,6 @@ button {
     text-align: center;
     border: none;
 }
-button::after{
-    content: attr(data-title);
-    position: absolute;
-    background: #444;
-    color: #fff;
-    left: 0;
-    top: 100%;
-    /* font-size: 12px; */
-    width: 100px;
-    padding: 5px;
-    border-radius: 4px;
-    transition: 300ms;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(15px);
-}
-button:hover::after{
-    opacity: 1;
-    transform: translateY(5px);
-}
-
 
 button.armed {
     color: var(--c2-light);

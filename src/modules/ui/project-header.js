@@ -38,10 +38,10 @@ export default class ProjectHeader {
         if(!isDefaultProject) {
             // Save the 'Project Title' when focus on the input box is lost
             projectName.addEventListener('blur', (event) => {   // 'focus' is the opposite of 'blur'
-                // TODO: Implement Save
-                // 1. Check if the Project Name already exits (revert to what the value was before if so)
-                // 2. Write to 'db'
-                console.log("lost focus");
+                if(!Storage.updateProjectName(project, projectName.value)) {
+                    // Revert changes in the UI if project name update fails
+                    projectName.value = project.getName();
+                }
             });
         } else {
             // Remove the ability to click into the input box

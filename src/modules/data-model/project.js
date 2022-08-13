@@ -27,12 +27,6 @@ export default class Project extends Container {
             //      Likely a good use case for pub-sub(?)
             const addSuccess = this.add(item);
         }
-
-        // TODO: REMOVE THIS DEBUG ITEM
-        // Add an item so i can see something in the list
-        if(this.isEmpty()) {
-            this.add(new Item(Item.makeObject(77, "hello there", false)));
-        }
     }
 
     setID(id) {
