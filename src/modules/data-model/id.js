@@ -2,7 +2,7 @@ export default class ID {
     _id = 0;
 
     constructor(initID=0) {
-        this._id = initID ?? 0;
+        this._id = initID ?? 1;
     }
 
     next() {
