@@ -81,6 +81,16 @@ export default class Storage {
         return todo.get('id', projectID);
     }
 
+    static addProject(name) {
+        Log.debug("Storage.addProject()");
+        if(name.length <= 0) return false;
+        const projectObject = Project.makeObject(idProject.next(), name);
+        const project = new Project(projectObject);
+        todo.add(project);
+        Storage.save();
+        return project;
+    }
+
     static addItem(project, title) {
         Log.debug("Storage.addItem()");
         if(title.length <= 0) return false;

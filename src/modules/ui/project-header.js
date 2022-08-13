@@ -3,6 +3,7 @@ import Project from '../data-model/project';
 import Message from './message';
 import UIItem from './ui-item';
 import Log from '../log';
+import UI from './ui';
 
 export default class ProjectHeader {
     static create(project=null) {
@@ -201,10 +202,12 @@ export default class ProjectHeader {
 
     static DBCreateProject(name) {
         Log.debug("UI.DBCreateProject()");
-        try {
-            if(name === "") throw "Project name can not be empty.";
-            if(name === null) throw "Project name was null";    
-            console.log(`Creating a New Project: ${name}`);
+        if(name === "") throw "Project name can not be empty.";
+        if(name === null) throw "Project name was null";    
+        const project = Storage.addProject(name);
+        const uiProject = UI.createProject(project);
+    try {
+            console.log(`Created a New Project: ${name}`);
         } catch (error) {
             Message.notify(error);
         }
@@ -212,13 +215,12 @@ export default class ProjectHeader {
 
     static DBAddItem(projectID, title) {
         Log.debug("UI.DBAddItem()");
-        const project = Storage.getProject(projectID);
-        const item = Storage.addItem(project, title);
-        const uiItem = UIItem.create(item);
-        const projectContainer = document.querySelector(project.getHTMLID(undefined, true));
-        projectContainer.append(uiItem);
-
         try {
+            const project = Storage.getProject(projectID);
+            const item = Storage.addItem(project, title);
+            const uiItem = UIItem.create(item);
+            const projectContainer = document.querySelector(project.getHTMLID(undefined, true));
+            projectContainer.append(uiItem);
             console.log(`Added Item '${title}' to ProjectID '${projectID}'`);
         } catch (error) {
             Message.notify(error);

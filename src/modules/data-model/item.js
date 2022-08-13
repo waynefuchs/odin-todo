@@ -75,6 +75,9 @@ export default class Item {
     constructor(item) {
         Log.debug("Item.constructor()");
 
+        console.log("MAKE IT");
+        console.dir(item);
+
         // id gets created based on session
         this.id = item.id ?? -1;
         this.title = item.title ?? "";

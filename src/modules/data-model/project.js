@@ -20,8 +20,8 @@ export default class Project extends Container {
         this.name = project.name ?? "TODO";   // 'TODO' is the default project name
 
         // Add Items
-        for(const itemData in project.list ?? []) {
-            const item = new Item(itemData);
+        for(const key in project.list ?? []) {
+            const item = new Item(project.list[key]);
             //TODO: Remove unused success value
             //TODO: Add notification on *why* the add failed
             //      Likely a good use case for pub-sub(?)
@@ -67,5 +67,9 @@ export default class Project extends Container {
             name: this.name,
             list: this.list,
         };
+    }
+
+    static makeObject(id, name) {
+        return {id, name};
     }
 }
