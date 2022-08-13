@@ -30,24 +30,17 @@ export default class ProjectHeader {
         headerDiv.classList.add('project-header');
         
         // project title (used to be h2)
-        let projectName = document.createElement('input');
-        projectName.classList.add('grid-title');
-        projectName.value = project.getName();
-
-        // Handle 'Project Title' renaming
-        if(!isDefaultProject) {
-            // Save the 'Project Title' when focus on the input box is lost
-            projectName.addEventListener('blur', (event) => {   // 'focus' is the opposite of 'blur'
-                if(!Storage.updateProjectName(project, projectName.value)) {
-                    // Revert changes in the UI if project name update fails
-                    projectName.value = project.getName();
-                }
-            });
+        let projectName = document.createElement(isDefaultProject ? 'h2' : 'input');
+        if(isDefaultProject) {
+            projectName.textContent = project.getName();
         } else {
-            // Remove the ability to click into the input box
-            projectName.classList.add('pointer');
-            projectName.addEventListener('focus', (event) => projectName.blur());
+            projectName.placeholder = "Project Name";
+            projectName.value = project.getName();
+            projectName.addEventListener('blur', (event) => {
+                if(!Storage.updateProjectName(project, projectName.value)) projectName.value = project.getName();
+            });
         }
+        projectName.classList.add('grid-title');
         headerDiv.append(projectName);
         
         // Toggle Button Group

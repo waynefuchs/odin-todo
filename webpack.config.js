@@ -19,7 +19,8 @@ module.exports = {
   devtool: 'inline-source-map',
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Development',
+      title: 'TODO',
+      meta: {viewport: 'width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1.0'},
     }),
   ],
   output: {
