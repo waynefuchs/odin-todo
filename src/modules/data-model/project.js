@@ -1,4 +1,3 @@
-import Log from "../log";
 import Container from "./container";
 import Item from "./item";
 
@@ -8,7 +7,6 @@ export default class Project extends Container {
     name;
 
     constructor(project=null) {
-        Log.debug("Project.constructor()");
         super();
         if (typeof project === 'string' || project instanceof String) throw "project.js: Object data expected";
 
@@ -30,32 +28,26 @@ export default class Project extends Container {
     }
 
     setID(id) {
-        Log.debug("Project.setID()");
         this.id = id;
     }
 
     getID() {
-        Log.debug("Project.getID()");
         return this.id;
     }
 
     setName(name) {
-        Log.debug("Project.setName()");
         this.name = name;
     }
 
     getName() {
-        Log.debug("Project.getName()");
         return this.name;
     }
 
     getHTMLID(prefix='project-', hash=false) {
-        Log.debug("Project.getHTMLID()");
         return (hash ? '#' : '') + prefix + this.id;
     }
 
     toJSON() {
-        Log.debug("Project.toJSON()");
         return {
             id: this.id,
             name: this.name,

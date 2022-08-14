@@ -2,7 +2,6 @@ import ID from './data-model/id';
 import TODO from './data-model/todo';
 import Project from './data-model/project';
 import Item from "./data-model/item";
-import Log from './log';
 import Message from './ui/message';
 
 // Constants
@@ -24,7 +23,6 @@ let isLoading = false;
 
 export default class Storage {
     static load() {
-        Log.debug("Storage.load()");
         // Disable Saving
         Storage.disableSave();
 
@@ -38,7 +36,6 @@ export default class Storage {
         // and send the resulting parsed object to Projects
         const jsonData = db.getItem(STORAGE_DATA); 
         const data = JSON.parse(jsonData);
-        console.dir(data);
         todo = new TODO(data);
 
         // Enable Saving
@@ -52,27 +49,22 @@ export default class Storage {
     }
 
     static disableSave() {
-        Log.debug("Storage.disableSave()");
         isLoading = true;
     }
 
     static enableSave() {
-        Log.debug("Storage.enableSave()");
         isLoading = false;
     }
     
     static save() {
-        Log.debug("Storage.save()");
         if(isLoading) throw "Attempted to save during load process.";
 
-        console.log("Writing to browser local storage...");
         db.setItem(STORAGE_ID_ITEM, idItem);
         db.setItem(STORAGE_ID_PROJECT, idProject);
         const jsonData = JSON.stringify(todo);
         db.setItem(STORAGE_DATA, jsonData);
 
         Storage.debugDB();
-        console.log("SAVE complete!");
     }
 
     static isProjectEmpty(project) {
@@ -81,12 +73,10 @@ export default class Storage {
     }
 
     static getProject(projectID) {
-        Log.debug("Storage.getProject()");
         return todo.get('id', projectID);
     }
 
     static addProject(name) {
-        Log.debug("Storage.addProject()");
         if(name.length <= 0) return false;
         const projectObject = Project.makeObject(idProject.next(), name);
         const project = new Project(projectObject);
@@ -102,7 +92,6 @@ export default class Storage {
     }
 
     static addItem(project, title) {
-        Log.debug("Storage.addItem()");
         if(title.length <= 0) return false;
         const itemObject = Item.makeObject(idItem.next(), title, false);
         const item = new Item(itemObject);
@@ -112,9 +101,8 @@ export default class Storage {
     }
 
     static deleteItem(projectID, itemID) {
-        Log.debug("Storage.deleteItem()");
         const project = todo.get('id', projectID);
-        project.del('id', itemID);
+        project.delete('id', itemID);
         Storage.save();
     }
 
@@ -123,10 +111,7 @@ export default class Storage {
             const existingProject = todo.get('name', title);
             // check to see if the user clicked to update, then didn't make changes
             // in other words: the existing project is this project
-            if(project === existingProject) {
-                console.log("update called but no change made");
-                return true;
-            }
+            if(project === existingProject) return true;
             Message.notify("The project already exists.");
             return false;
         }
@@ -136,7 +121,6 @@ export default class Storage {
     }
 
     static factoryReset() {
-        Log.debug("Storage.factoryReset()");
         idItem = undefined;
         idProject = undefined;
         todo = undefined;
@@ -146,27 +130,6 @@ export default class Storage {
         db.removeItem(STORAGE_DATA);
         Storage.load();
     }
-
-
-
-
-
-
-
-    // FIX
-    static delegateSetDone(id, done) {
-        const item = List.getItemByID(id);
-        item.setDone(done);
-        Storage.save();
-    }
-
-    // FIX
-    static delegateDeleteItem(id) {
-        const result = List.deleteItemByID(id);
-        if(result) Storage.save();
-        return result;
-    }
-
 
     // DEBUG
     static debugDB() {
