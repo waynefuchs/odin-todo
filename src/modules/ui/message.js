@@ -21,7 +21,7 @@ export default class Message {
         const buttonDelete = document.createElement('button');
         buttonDelete.id = `buttonDelete${messageDiv.id}`
         buttonDelete.classList.add('material-icons');
-        buttonDelete.classList.add('cancel');
+        buttonDelete.classList.add('warning');
         buttonDelete.textContent = "warning";
         buttonDelete.addEventListener('click', () => messageDiv.remove());
 

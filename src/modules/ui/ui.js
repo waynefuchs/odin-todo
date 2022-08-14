@@ -22,11 +22,10 @@ export default class UI {
         document.body.append(main);
         const allProjects = projects.getAll();
 
-        allProjects.forEach((project) => {
-            UI.createProject(project);
-        });
         try {
-
+            allProjects.forEach((project) => {
+                UI.createProject(project);
+            });    
         } catch (error) {
             Message.notify(`Failed to iterate projects: ${error}`);
         }

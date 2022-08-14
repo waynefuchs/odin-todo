@@ -89,7 +89,6 @@ export default class ProjectHeader {
         } else {
             // Delete Project Button
             // Only show if not 'default' project
-            console.log("DELETETTEEE");
             const deleteProjectButton = document.createElement('button');
             deleteProjectButton.id = `deleteProjectButton-${project.getID()}`;
             deleteProjectButton.classList.add('material-icons');
@@ -230,11 +229,11 @@ export default class ProjectHeader {
 
     static DBCreateProject(name) {
         Log.debug("UI.DBCreateProject()");
-        if(name === "") throw "Project name can not be empty.";
-        if(name === null) throw "Project name was null";    
-        const project = Storage.addProject(name);
-        const uiProject = UI.createProject(project);
-    try {
+        try {
+            if(name === "") throw "Project name can not be empty.";
+            if(name === null) throw "Project name was null";    
+            const project = Storage.addProject(name);
+            const uiProject = UI.createProject(project);
             console.log(`Created a New Project: ${name}`);
         } catch (error) {
             Message.notify(error);

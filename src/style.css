@@ -181,7 +181,19 @@ button.cancel {
     visibility: visible;
 }
 
+.message {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: var(--pad);
+    background-color: var(--c2-dark);
+    color: var(--c-light);
+    font-weight: bold;
+}
 
+.warning {
+    color: var(--c2-light);
+}
 
 
 
