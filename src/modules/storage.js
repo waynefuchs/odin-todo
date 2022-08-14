@@ -75,6 +75,11 @@ export default class Storage {
         console.log("SAVE complete!");
     }
 
+    static isProjectEmpty(project) {
+        if(project.getAll().length > 0) return true;
+        return false;
+    }
+
     static getProject(projectID) {
         Log.debug("Storage.getProject()");
         return todo.get('id', projectID);
@@ -88,6 +93,12 @@ export default class Storage {
         todo.add(project);
         Storage.save();
         return project;
+    }
+
+    static deleteProject(project) {
+        const success = todo.delete(project.getID());
+        if(success) Storage.save();
+        return success;
     }
 
     static addItem(project, title) {
@@ -135,7 +146,6 @@ export default class Storage {
         db.removeItem(STORAGE_DATA);
         Storage.load();
     }
-
 
 
 

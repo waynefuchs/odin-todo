@@ -26,11 +26,11 @@ export default class Container {
     }
 
     // return: number of removed objects
-    del(key, value) {
+    delete(key, value) {
         Log.debug("Container.del()");
         const oldLength = this.list.length;
         this.list = this.list.filter(o => o[key] !== value);
-        return this.list.length - oldLength;
+        return (oldLength - this.list.length) > 0;
     }
 
     get(key, value) {

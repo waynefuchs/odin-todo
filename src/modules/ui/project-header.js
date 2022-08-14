@@ -58,10 +58,10 @@ export default class ProjectHeader {
         let div = document.createElement('div');
         div.classList.add('grid-button');
 
-        // Toggle Button (Project)
-        // This only appears as the first project (default::no project) on the page
         let projectContainer = null;
         if(project.getID() === 0) {
+            // Toggle Button (Add Project)
+            // This only appears as the first project (default::no project) on the page
             const factoryReset = document.createElement('button');
             factoryReset.classList.add('material-icons');
             factoryReset.textContent = 'delete_forever';
@@ -86,6 +86,19 @@ export default class ProjectHeader {
             projectContainer = ProjectHeader.createToggleContainer(projectToggleData);
             div.append(projectButton);
             containers.push(projectContainer);
+        } else {
+            // Delete Project Button
+            // Only show if not 'default' project
+            console.log("DELETETTEEE");
+            const deleteProjectButton = document.createElement('button');
+            deleteProjectButton.id = `deleteProjectButton-${project.getID()}`;
+            deleteProjectButton.classList.add('material-icons');
+            deleteProjectButton.textContent = "delete";
+            if(Storage.isProjectEmpty(project)) deleteProjectButton.classList.add('hidden');
+            deleteProjectButton.addEventListener('click', (event) => {
+                if(Storage.deleteProject(project)) UI.removeElementAndChildren(parent);
+            });
+            div.append(deleteProjectButton);
         }
 
         // Toggle Button (Item)
@@ -169,18 +182,18 @@ export default class ProjectHeader {
         div.append(input);
 
         // add button
-        const button = document.createElement('button');
-        button.classList.add('material-icons');
-        button.classList.add('armed');
-        button.setAttribute('title', data.popup);
-        button.textContent = data.textOff;
-        button.addEventListener('click', (event) => {
+        const addItemButton = document.createElement('button');
+        addItemButton.classList.add('material-icons');
+        addItemButton.classList.add('armed');
+        addItemButton.setAttribute('title', data.popup);
+        addItemButton.textContent = data.textOff;
+        addItemButton.addEventListener('click', (event) => {
             if(data.isProject) ProjectHeader.DBCreateProject(input.value);
             else if(data.isItem) ProjectHeader.DBAddItem(data.projectID, input.value);
             input.value = "";
             input.focus();
         });
-        div.append(button);
+        div.append(addItemButton);
 
         input.addEventListener('keydown', (event) => {
             if(event.key === 'Escape') {
@@ -188,7 +201,7 @@ export default class ProjectHeader {
                 buttonToggleItem.dispatchEvent(new Event('click'));
                 console.log(`${input.name} escape press`);
             } else if(event.key === 'Enter') {
-                button.dispatchEvent(new Event('click'));
+                addItemButton.dispatchEvent(new Event('click'));
                 console.log(`${input.name} enter press`);
             }
         });

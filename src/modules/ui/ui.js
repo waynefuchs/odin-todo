@@ -21,12 +21,14 @@ export default class UI {
         const main = document.createElement('main');
         document.body.append(main);
         const allProjects = projects.getAll();
+
+        allProjects.forEach((project) => {
+            UI.createProject(project);
+        });
         try {
-            allProjects.forEach((project) => {
-                UI.createProject(project);
-            });
+
         } catch (error) {
-            console.error(`Failed to iterate projects: ${error}`);
+            Message.notify(`Failed to iterate projects: ${error}`);
         }
     }
 
@@ -39,10 +41,7 @@ export default class UI {
     static factoryReset() {
         // Remove the current UI representation of the data
         const main = document.querySelector('main');
-        while (main.firstChild) {
-            main.removeChild(main.firstChild);
-        }
-        main.remove();
+        UI.removeElementAndChildren(main);
 
         // Clear the back-end data
         Storage.factoryReset();
@@ -53,6 +52,11 @@ export default class UI {
 
 
 
+
+    static removeElementAndChildren(element) {
+        while (element.firstChild) element.removeChild(element.firstChild);
+        element.remove();
+    }
 
     // TODO: Get this working again
     static listenForKeyboardEvents(e) {
