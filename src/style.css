@@ -159,7 +159,7 @@ button.cancel {
 
 .item>label {
 
-    padding-top: calc(var(--pad));
+    padding-top: calc(var(--pad) * 2);
     padding-bottom: calc(var(--pad) * 2);
 }
 
