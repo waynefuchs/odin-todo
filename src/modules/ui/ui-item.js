@@ -37,12 +37,18 @@ export default class UIItem {
         checkbox.type = 'checkbox';
         checkbox.id = checkboxID;
         checkbox.name = checkboxID;
-        checkbox.checked = item.done;
+        checkbox.checked = item.isDone();
+        let action = item.isDone() ? 'add' : 'remove';
+        div.classList[action]('done');
+        label.classList[action]('done');
+        deleteButton.classList[action]('done');
         checkbox.addEventListener('change', (event) => {
-            const f = checkbox.checked ? 'add' : 'remove';
-            div.classList[f]('done');
-            label.classList[f]('done');
-            deleteButton.classList[f]('done');
+            item.setDone(checkbox.checked);
+            action = item.isDone() ? 'add' : 'remove';
+            Storage.save();
+            div.classList[action]('done');
+            label.classList[action]('done');
+            deleteButton.classList[action]('done');
         });
 
         div.append(checkbox);
