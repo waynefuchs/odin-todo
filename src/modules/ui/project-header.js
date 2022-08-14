@@ -181,8 +181,10 @@ export default class ProjectHeader {
         addItemButton.setAttribute('title', data.popup);
         addItemButton.textContent = data.textOff;
         addItemButton.addEventListener('click', (event) => {
+            const projectID = Number(data.projectID);
             if(data.isProject) ProjectHeader.DBCreateProject(input.value);
-            else if(data.isItem) ProjectHeader.DBAddItem(data.projectID, input.value);
+            else if(data.isItem) ProjectHeader.DBAddItem(projectID, input.value);
+            ProjectHeader.toggleDeleteProjectButton(projectID);
             input.value = "";
             input.focus();
         });
@@ -198,6 +200,18 @@ export default class ProjectHeader {
         });
 
         return div;
+    }
+
+    static toggleDeleteProjectButton(projectID) {
+        if(typeof(projectID) !== "number") {
+            console.error("toggleDeleteProjectButton -- projectID is not a number.");
+            return;
+        }
+        if(projectID === 0) return;
+        const project = Storage.getProject(projectID);
+        if(project === null) throw "Project is null";
+        const deleteProjectButton = document.querySelector(`#deleteProjectButton-${projectID}`);
+        deleteProjectButton.classList[project.isEmpty() ? 'remove' : 'add']('hidden');
     }
 
     static turnOffAllToggles(buttonIgnore=null) {

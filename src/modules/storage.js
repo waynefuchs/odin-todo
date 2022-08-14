@@ -111,6 +111,11 @@ export default class Storage {
     }
 
     static updateProjectName(project, title) {
+        if(title === "") {
+            Message.notify("Project name can not be empty.");
+            return false;
+        }
+
         if(todo.contains('name', title)) {
             const existingProject = todo.get('name', title);
             // check to see if the user clicked to update, then didn't make changes

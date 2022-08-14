@@ -1,4 +1,5 @@
 import Storage from "../storage"
+import ProjectHeader from "./project-header";
 
 export default class UIItem {
     static create(item) {
@@ -31,6 +32,7 @@ export default class UIItem {
             const itemID = item.getID();
             Storage.deleteItem(projectID, itemID);
             div.remove();
+            ProjectHeader.toggleDeleteProjectButton(projectID);
         });
 
         const checkbox = document.createElement('input');

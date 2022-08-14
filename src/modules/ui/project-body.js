@@ -1,4 +1,5 @@
 import Storage from '../storage';
+import ProjectHeader from './project-header';
 import UIItem from "./ui-item";
 
 export default class ProjectBody {
@@ -29,11 +30,16 @@ export default class ProjectBody {
             const element = projectDiv.querySelector(`#${dragResult.id}`);
             dragResult.endProjectID = projectDiv.id;
             dragResult.endIndex = [...projectDiv.children].indexOf(element);
+            const itemID = Number(dragResult.id.slice(5));
+            const startProjectID = Number(dragResult.startProjectID.slice(8));
+            const endProjectID = Number(dragResult.endProjectID.slice(8));
             Storage.moveItem(
-                Number(dragResult.id.slice(5)), 
-                Number(dragResult.startProjectID.slice(8)), 
-                Number(dragResult.endProjectID.slice(8)), 
+                itemID, 
+                startProjectID, 
+                endProjectID, 
                 dragResult.endIndex);
+            ProjectHeader.toggleDeleteProjectButton(startProjectID);
+            ProjectHeader.toggleDeleteProjectButton(endProjectID);            
         });
 
         const main = document.querySelector('main');
