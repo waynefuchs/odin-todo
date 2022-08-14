@@ -79,20 +79,19 @@ body {
     column-gap: var(--gap);
     align-items: center;
     grid-template-columns: 1fr auto;
-    /* grid-template-areas: 
-        "title button"
-        "toggle toggle"; */
+}
+
+.project {
+    min-height: 1rem;
 }
 
 .grid-toggle {
-    /* grid-area: toggle; */
     grid-column-start: span 2;
 }
 
 .grid-title {
     padding: 0;
     margin: 0;
-    /* grid-area: title; */
     font-size: clamp(1rem, 2rem, 2rem);
     font-weight: 700;
     color: var(--c-light);
@@ -102,15 +101,11 @@ body {
 }
 
 .grid-button {
-    /* grid-area: button; */
     justify-self: end;
 }
 
-/* Don't use empty rule-sets
-.toggle-button {
-
-} 
-*/
+/* Don't use empty rule-sets */
+/* .toggle-button { } */
 
 .toggle-container {
     display: grid;
@@ -195,12 +190,7 @@ button.cancel {
     color: var(--c2-light);
 }
 
-
-
-
-
-
-
+/* Drag and Drop */
 .dragging {
     transition: 1ms;
     transform: scaleY(0);
@@ -211,3 +201,5 @@ button.cancel {
 }
 
 /* .dropzone { } */
+
+/* End Drag and Drop */
