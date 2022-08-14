@@ -3,11 +3,6 @@ import Item from "../data-model/item";
 import Log from "../log";
 
 export default class UIItem {
-    // id;
-    // title;
-    // done;
-    // originDate;
-    // dueDate;
     static create(item) {
         Log.debug("UIItem.create()");
         const div = document.createElement('div');
@@ -32,6 +27,7 @@ export default class UIItem {
 
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('material-icons');
+        deleteButton.classList.add('item-delete');
         deleteButton.textContent = 'delete';
         deleteButton.addEventListener('click', (event) => {
             const projectID = Number(event.target.parentElement.parentElement.id.slice(8));
@@ -44,6 +40,7 @@ export default class UIItem {
         checkbox.type = 'checkbox';
         checkbox.id = checkboxID;
         checkbox.name = checkboxID;
+        checkbox.checked = item.done;
         checkbox.addEventListener('change', (event) => {
             const f = checkbox.checked ? 'add' : 'remove';
             div.classList[f]('done');

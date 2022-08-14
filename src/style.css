@@ -66,9 +66,9 @@
 }
 
 body {
+    width: 100%;
     margin: 0;
     padding: 0;
-    width: 100%;
 }
 
 .project-header {
@@ -172,8 +172,13 @@ button.cancel {
     text-decoration: line-through;
 }
 
+.item>button {
+    visibility: hidden;
+}
+
 .item>button.done {
     color: var(--c-lightgray);
+    visibility: visible;
 }
 
 
