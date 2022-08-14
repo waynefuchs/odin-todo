@@ -20,6 +20,10 @@ export default class Container {
         return true;
     }
 
+    insert(object, index) {
+        this.list.splice(index, 0, object);
+    }
+
     // return: number of removed objects
     delete(key, value) {
         const oldLength = this.list.length;

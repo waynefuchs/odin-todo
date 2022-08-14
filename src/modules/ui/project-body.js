@@ -1,5 +1,4 @@
-import Project from "../data-model/project";
-import Item from "../data-model/item";
+import Storage from '../storage';
 import UIItem from "./ui-item";
 
 export default class ProjectBody {
@@ -30,9 +29,11 @@ export default class ProjectBody {
             const element = projectDiv.querySelector(`#${dragResult.id}`);
             dragResult.endProjectID = projectDiv.id;
             dragResult.endIndex = [...projectDiv.children].indexOf(element);
-            // TODO: Make this do something
-            console.log(`FROM: project:${dragResult.startProjectID}, id:${dragResult.id}`);
-            console.log(`  TO: project:${dragResult.endProjectID}, position:${dragResult.endIndex}`);
+            Storage.moveItem(
+                Number(dragResult.id.slice(5)), 
+                Number(dragResult.startProjectID.slice(8)), 
+                Number(dragResult.endProjectID.slice(8)), 
+                dragResult.endIndex);
         });
 
         const main = document.querySelector('main');

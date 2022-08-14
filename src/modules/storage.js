@@ -101,6 +101,15 @@ export default class Storage {
         Storage.save();
     }
 
+    static moveItem(itemID, fromProjectID, toProjectID, index) {
+        const fromProject = Storage.getProject(fromProjectID);
+        const item = fromProject.get('id', itemID);
+        const toProject = Storage.getProject(toProjectID);
+        fromProject.delete('id', item.getID());
+        toProject.insert(item, index);
+        Storage.save();
+    }
+
     static updateProjectName(project, title) {
         if(todo.contains('name', title)) {
             const existingProject = todo.get('name', title);
