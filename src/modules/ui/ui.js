@@ -5,27 +5,22 @@ import ProjectHeader from './project-header';
 import ProjectBody from './project-body';
 import Log from '../log';
 
-const projects = Storage.load();
+let projects;
 
 export default class UI {
     static load() {
         Log.debug("UI.load()");
         Message.createContainer();
         UI.loadProjects();
-
-        // UI.createHeading('h1', 'todo');
-
-        // UI.createToggleGroup();
-
-        // UI.createContainerTodo();
-        // UI.createContainerDone();
-
         // document.addEventListener('keydown', UI.listenForKeyboardEvents);
     }
 
     static loadProjects() {
         Log.debug("UI.loadProjects()");
-        const allProjects = projects.getAll()
+        projects = Storage.load();
+        const main = document.createElement('main');
+        document.body.append(main);
+        const allProjects = projects.getAll();
         try {
             allProjects.forEach((project) => {
                 UI.createProject(project);
@@ -41,7 +36,20 @@ export default class UI {
         ProjectBody.create(project);
     }
 
+    static factoryReset() {
+        // Remove the current UI representation of the data
+        const main = document.querySelector('main');
+        while (main.firstChild) {
+            main.removeChild(main.firstChild);
+        }
+        main.remove();
 
+        // Clear the back-end data
+        Storage.factoryReset();
+
+        // Reload the data
+        UI.loadProjects();
+    }
 
 
 

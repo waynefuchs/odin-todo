@@ -25,8 +25,6 @@ let isLoading = false;
 export default class Storage {
     static load() {
         Log.debug("Storage.load()");
-        // Storage.factoryReset();
-
         // Disable Saving
         Storage.disableSave();
 
@@ -128,9 +126,14 @@ export default class Storage {
 
     static factoryReset() {
         Log.debug("Storage.factoryReset()");
+        idItem = undefined;
+        idProject = undefined;
+        todo = undefined;
+        isLoading = false;
         db.removeItem(STORAGE_ID_ITEM);
         db.removeItem(STORAGE_ID_PROJECT);
         db.removeItem(STORAGE_DATA);
+        Storage.load();
     }
 
 

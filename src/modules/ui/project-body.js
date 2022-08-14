@@ -37,7 +37,8 @@ export default class ProjectBody {
             console.log(`  TO: project:${dragResult.endProjectID}, position:${dragResult.endIndex}`);
         });
 
-        document.body.append(projectDiv);
+        const main = document.querySelector('main');
+        main.append(projectDiv);
 
         return projectDiv;
     }

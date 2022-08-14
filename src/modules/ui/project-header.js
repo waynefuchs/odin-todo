@@ -47,7 +47,8 @@ export default class ProjectHeader {
         ProjectHeader.createToggleButtonGroup(headerDiv, project);
 
         // Put the header div into the DOM
-        document.body.append(headerDiv);
+        const main = document.querySelector('main');
+        main.append(headerDiv);
     }
 
     static createToggleButtonGroup(parent, project) {
@@ -61,6 +62,15 @@ export default class ProjectHeader {
         // This only appears as the first project (default::no project) on the page
         let projectContainer = null;
         if(project.getID() === 0) {
+            const factoryReset = document.createElement('button');
+            factoryReset.classList.add('material-icons');
+            factoryReset.textContent = 'delete_forever';
+            factoryReset.setAttribute('title', 'Factory Reset');
+            factoryReset.addEventListener('click', (event) => {
+                UI.factoryReset();
+            });
+            div.append(factoryReset);
+
             const projectToggleData = {
                 buttonID: 'button-ToggleProject',
                 containerID: 'container-ToggleProject',
@@ -106,6 +116,7 @@ export default class ProjectHeader {
         let button = document.createElement('button');
         button.classList.add('material-icons');
         button.classList.add('toggle-button');
+        // TODO: How much of this do I need??
         button.setAttribute('title', data.popup);
         button.setAttribute('reset-title', data.popup);
         button.setAttribute('text-on', data.textOn);

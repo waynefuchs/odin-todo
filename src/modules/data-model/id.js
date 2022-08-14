@@ -1,5 +1,5 @@
 export default class ID {
-    _id = 0;
+    _id = 1;
 
     constructor(initID=0) {
         this._id = initID ?? 1;
