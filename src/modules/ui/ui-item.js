@@ -1,10 +1,7 @@
 import Storage from "../storage"
-import Item from "../data-model/item";
-import Log from "../log";
 
 export default class UIItem {
     static create(item) {
-        Log.debug("UIItem.create()");
         const div = document.createElement('div');
         div.id = item.getHTMLID();
         div.classList.add('item');
@@ -32,7 +29,7 @@ export default class UIItem {
         deleteButton.addEventListener('click', (event) => {
             const projectID = Number(event.target.parentElement.parentElement.id.slice(8));
             const itemID = item.getID();
-            UIItem.DBDeleteItem(projectID, itemID);
+            Storage.deleteItem(projectID, itemID);
             div.remove();
         });
 
@@ -56,17 +53,9 @@ export default class UIItem {
     }
 
     static dragSetData(event) {
-        Log.debug("UIItem.dragSetData()");
         event.dataTransfer.setData('text/plain', JSON.stringify({
                 id: event.target.id,
                 startProjectID: event.target.parentElement.id,
             }));
-    }
-
-    static DBDeleteItem(projectID, itemID) {
-        Log.debug("UIItem.dbDeleteItem()");
-        console.log("Here we go, mario!");
-        Storage.deleteItem(projectID, itemID);
-        console.log(`delete: ${projectID}:${itemID}`);
     }
 }

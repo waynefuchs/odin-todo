@@ -1,11 +1,9 @@
 import Project from "../data-model/project";
 import Item from "../data-model/item";
 import UIItem from "./ui-item";
-import Log from "../log";
 
 export default class ProjectBody {
     static create(project) {
-        Log.debug("ProjectBody.create()");
         const projectDiv = ProjectBody.createContainerElement(project);
 
         const items = project.getAll();
@@ -13,7 +11,6 @@ export default class ProjectBody {
     }
 
     static createContainerElement(project) {
-        Log.debug("ProjectBody.createContainerElement()");
         let projectDiv = document.createElement('div');
         projectDiv.id = project.getHTMLID();
         projectDiv.classList.add('project');
@@ -33,6 +30,7 @@ export default class ProjectBody {
             const element = projectDiv.querySelector(`#${dragResult.id}`);
             dragResult.endProjectID = projectDiv.id;
             dragResult.endIndex = [...projectDiv.children].indexOf(element);
+            // TODO: Make this do something
             console.log(`FROM: project:${dragResult.startProjectID}, id:${dragResult.id}`);
             console.log(`  TO: project:${dragResult.endProjectID}, position:${dragResult.endIndex}`);
         });
@@ -44,12 +42,10 @@ export default class ProjectBody {
     }
 
     static dragGetData(event) {
-        Log.debug("ProjectBody.dragGetData()");
         return JSON.parse(event.dataTransfer.getData('text/plain'));
     }
 
     static getDragElementToPlaceBefore(container, y) {
-        Log.debug("ProjectBody.getDragElementToPlaceBefore()");
         const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')]
         return draggableElements.reduce((closest, child) => {
             const box = child.getBoundingClientRect();
