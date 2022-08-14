@@ -217,7 +217,7 @@ export default class ProjectHeader {
     static DBCreateProject(name) {
         try {
             if(name === "") throw "Project name can not be empty.";
-            if(name === null) throw "Project name was null";    
+            if(name === null) throw "Project name can not be null";
             const project = Storage.addProject(name);
             const uiProject = UI.createProject(project);
         } catch (error) {
@@ -227,6 +227,8 @@ export default class ProjectHeader {
 
     static DBAddItem(projectID, title) {
         try {
+            if(title === "") throw "Item title can not be empty.";
+            if(title === null) throw "Item title can not be null";
             const project = Storage.getProject(projectID);
             const item = Storage.addItem(project, title);
             const uiItem = UIItem.create(item);

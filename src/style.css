@@ -202,7 +202,7 @@ button.cancel {
 
 
 .dragging {
-    transition: 0.2s;
+    transition: 1ms;
     transform: scaleY(0);
 }
 
