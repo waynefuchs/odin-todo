@@ -118,6 +118,10 @@ body {
     display: none;
 }
 
+button.hidden {
+    display: none;
+}
+
 input[type=text] {
     height: 2rem;
     border-radius: 1rem;

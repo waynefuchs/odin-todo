@@ -67,11 +67,6 @@ export default class Storage {
         Storage.debugDB();
     }
 
-    static isProjectEmpty(project) {
-        if(project.getAll().length > 0) return true;
-        return false;
-    }
-
     static getProject(projectID) {
         return todo.get('id', projectID);
     }

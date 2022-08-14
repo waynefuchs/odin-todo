@@ -85,7 +85,11 @@ export default class ProjectHeader {
             deleteProjectButton.id = `deleteProjectButton-${project.getID()}`;
             deleteProjectButton.classList.add('material-icons');
             deleteProjectButton.textContent = "delete";
-            if(Storage.isProjectEmpty(project)) deleteProjectButton.classList.add('hidden');
+            // Writing a note becuase I've looked at this several times
+            // It's !project.isEmpty() because I'm toggling the 'hidden' attribute
+            // so it's a 'double negative' situation.
+            // [Neg:Hide] the trash when the project is [Neg:not] empty
+            if(!project.isEmpty()) deleteProjectButton.classList.add('hidden');
             deleteProjectButton.addEventListener('click', (event) => {
                 if(Storage.deleteProject(project)) UI.removeElementAndChildren(parent);
             });
