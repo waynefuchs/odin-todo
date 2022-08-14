@@ -60,7 +60,6 @@ export default class Item {
     }
 
     static makeObject(id, title, done, originDate=null, dueDate=null) {
-        Log.debug("Item.makeObject()");
         return {id, title, done, originDate, dueDate};
     }    
 }
