@@ -182,6 +182,17 @@ export default class ProjectHeader {
         });
         div.append(button);
 
+        input.addEventListener('keydown', (event) => {
+            if(event.key === 'Escape') {
+                const buttonToggleItem = document.querySelector(`.cancel`);
+                buttonToggleItem.dispatchEvent(new Event('click'));
+                console.log(`${input.name} escape press`);
+            } else if(event.key === 'Enter') {
+                button.dispatchEvent(new Event('click'));
+                console.log(`${input.name} enter press`);
+            }
+        });
+
         return div;
     }
 
