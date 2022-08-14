@@ -26,6 +26,8 @@ export default class Container {
 
     // return: number of removed objects
     delete(key, value) {
+        if(key === null || key === undefined) return false;
+        if(value === null || value === undefined) return false;
         const oldLength = this.list.length;
         this.list = this.list.filter(o => o[key] !== value);
         return (oldLength - this.list.length) > 0;

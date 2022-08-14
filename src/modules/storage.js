@@ -8,7 +8,7 @@ import Message from './ui/message';
 const STORAGE_ID_ITEM = "todo-id-item";
 const STORAGE_ID_PROJECT = "todo-id-project";
 const STORAGE_DATA = "todo-data";
-const DEBUG = true;
+const DEBUG = false;
 
 // IDs
 let idItem;
@@ -81,7 +81,7 @@ export default class Storage {
     }
 
     static deleteProject(project) {
-        const success = todo.delete(project.getID());
+        const success = todo.delete('id', project.getID());
         if(success) Storage.save();
         return success;
     }
@@ -97,8 +97,10 @@ export default class Storage {
 
     static deleteItem(projectID, itemID) {
         const project = todo.get('id', projectID);
+        if(project === null || project === undefined) return false;
         project.delete('id', itemID);
         Storage.save();
+        return true;
     }
 
     static moveItem(itemID, fromProjectID, toProjectID, index) {

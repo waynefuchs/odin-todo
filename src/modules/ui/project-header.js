@@ -92,6 +92,7 @@ export default class ProjectHeader {
             if(!project.isEmpty()) deleteProjectButton.classList.add('hidden');
             deleteProjectButton.addEventListener('click', (event) => {
                 if(Storage.deleteProject(project)) UI.removeElementAndChildren(parent);
+                else Message.notify("Failed to remove project!");
             });
             div.append(deleteProjectButton);
         }
@@ -203,10 +204,7 @@ export default class ProjectHeader {
     }
 
     static toggleDeleteProjectButton(projectID) {
-        if(typeof(projectID) !== "number") {
-            console.error("toggleDeleteProjectButton -- projectID is not a number.");
-            return;
-        }
+        if(typeof(projectID) !== "number") return;
         if(projectID === 0) return;
         const project = Storage.getProject(projectID);
         if(project === null) throw "Project is null";
@@ -239,7 +237,7 @@ export default class ProjectHeader {
             const project = Storage.addProject(name);
             const uiProject = UI.createProject(project);
         } catch (error) {
-            Message.notify(error);
+            Message.notify('moo' + error);
         }
     }
 
