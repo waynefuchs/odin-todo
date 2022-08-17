@@ -5,23 +5,17 @@ export default class Container {
     this.list = [];
   }
 
-  // returns: true or false
   contains(key, value) {
     if (key === null || value === null) return false;
     return this.list.find((o) => o[key] === value) !== undefined;
   }
 
-  // return: success (true or false)
   add(object, hasKey = null, equalToValue = null) {
-    // TODO: Check list for duplicate values
-    // this if statement doesn't do that lol
-    // if(this.contains(key, value)) return false;
     if (hasKey !== null
         && equalToValue !== null
         && this.contains(hasKey, equalToValue)) {
       return false;
     }
-
     this.list.push(object);
     return true;
   }
@@ -30,7 +24,6 @@ export default class Container {
     this.list.splice(index, 0, object);
   }
 
-  // return: number of removed objects
   delete(key, value) {
     if (key === null || key === undefined) return false;
     if (value === null || value === undefined) return false;
