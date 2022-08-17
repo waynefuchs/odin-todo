@@ -5,13 +5,13 @@ import Project from './project';
 export default class TODO extends Container {
   constructor(todo) {
     super();
-    const todoObject = todo ?? [];
+    const todoObject = todo ?? null;
     if (typeof todoObject === 'string' || todoObject instanceof String) {
       throw new Error('todo.js: Object data expected');
     }
 
     // Iterate the project list and add the loaded items
-    todoObject.list.forEach((project) => this.add(new Project(project)));
+    todoObject?.list?.forEach((project) => this.add(new Project(project)));
 
     // Ensure a 'default' TODO exists.
     if (!this.contains('id', 0)) this.add(new Project());

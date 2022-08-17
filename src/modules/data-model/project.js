@@ -19,7 +19,7 @@ export default class Project extends Container {
     this.name = projectObject.name ?? 'TODO'; // 'TODO' is the default project name
 
     // Add Items
-    projectObject.list.forEach((itemObject) => this.add(new Item(itemObject)));
+    projectObject?.list?.forEach((itemObject) => this.add(new Item(itemObject)));
   }
 
   setID(id) {
