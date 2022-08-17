@@ -1,27 +1,28 @@
 export default class ID {
-    _id = 1;
+  id = 1;
 
-    constructor(initID=0) {
-        this._id = initID ?? 1;
-    }
+  constructor(initID = 0) {
+    this.id = initID ?? 1;
+  }
 
-    next() {
-        return this._id++;
-    }
+  next() {
+    this.id += 1;
+    return this.id;
+  }
 
-    set(id) {
-        this._id = id;
-    }
+  set(id) {
+    this.id = id;
+  }
 
-    get() {
-        return this._id;
-    }
+  get() {
+    return this.id;
+  }
 
-    toString() {
-        return this._id.toString();
-    }
+  toString() {
+    return this.id.toString();
+  }
 
-    toJSON() {
-        return this._id;
-    }
-};
+  toJSON() {
+    return this.id;
+  }
+}
