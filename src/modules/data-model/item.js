@@ -1,65 +1,71 @@
 export default class Item {
-    id;
-    title;
-    done;
-    originDate;
-    dueDate;
+  id;
 
-    setTitle(title) {
-        this.title = title;
-    }
+  title;
 
-    getTitle() {
-        return this.title;
-    }
+  done;
 
-    setDueDate(dueDate) {
-        this.dueDate = dueDate;
-    }
+  originDate;
 
-    getDueDate() {
-        return this.dueDate;
-    }
+  dueDate;
 
-    getOriginDate() {
-        return this.originDate;
-    }
+  setTitle(title) {
+    this.title = title;
+  }
 
-    getID() {
-        return this.id;
-    }
+  getTitle() {
+    return this.title;
+  }
 
-    getHTMLID(prefix='item-', hash=false) {
-        return (hash ? '#' : '') + prefix + this.id;
-    }
+  setDueDate(dueDate) {
+    this.dueDate = dueDate;
+  }
 
-    setDone(done) {
-        this.done = done;
-    }
+  getDueDate() {
+    return this.dueDate;
+  }
 
-    isDone() {
-        return this.done;
-    }
+  getOriginDate() {
+    return this.originDate;
+  }
 
-    toJSON() {
-        return {
-            id: this.id,
-            title: this.title,
-            done: this.done,
-            originDate: this.originDate,
-            dueDate: this.dueDate
-        };
-    }
+  getID() {
+    return this.id;
+  }
 
-    constructor(item) {
-        this.id = item.id ?? -1;
-        this.title = item.title ?? "";
-        this.done = item.done ?? false;
-        this.originDate = item.originDate ?? Date.now();
-        this.dueDate = item.dueDate ?? false;
-    }
+  getHTMLID(prefix = 'item-', hash = false) {
+    return (hash ? '#' : '') + prefix + this.id;
+  }
 
-    static makeObject(id, title, done, originDate=null, dueDate=null) {
-        return {id, title, done, originDate, dueDate};
-    }    
+  setDone(done) {
+    this.done = done;
+  }
+
+  isDone() {
+    return this.done;
+  }
+
+  toJSON() {
+    return {
+      id: this.id,
+      title: this.title,
+      done: this.done,
+      originDate: this.originDate,
+      dueDate: this.dueDate,
+    };
+  }
+
+  constructor(item) {
+    this.id = item.id ?? -1;
+    this.title = item.title ?? '';
+    this.done = item.done ?? false;
+    this.originDate = item.originDate ?? Date.now();
+    this.dueDate = item.dueDate ?? false;
+  }
+
+  static makeObject(id, title, done, originDate = null, dueDate = null) {
+    return {
+      id, title, done, originDate, dueDate,
+    };
+  }
 }
