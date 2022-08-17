@@ -1,27 +1,27 @@
 @font-face {
-  font-family: "Inter";
-  src: local("Inter-Regular"), url("fonts/Inter-Regular.ttf") format("truetype");
+  font-family: 'Inter';
+  src: local('Inter-Regular'), url('fonts/Inter-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Inter";
-  src: local("Inter-Bold"), url("fonts/Inter-Bold.ttf") format("truetype");
+  font-family: 'Inter';
+  src: local('Inter-Bold'), url('fonts/Inter-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Material Icons";
+  font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: local("MaterialIcons-Regular"),
-    url(./fonts/MaterialIcons-Regular.ttf) format("truetype");
+  src: local('MaterialIcons-Regular'),
+    url(./fonts/MaterialIcons-Regular.ttf) format('truetype');
 }
 
 * {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 :root {
@@ -41,7 +41,7 @@
 }
 
 .material-icons {
-  font-family: "Material Icons";
+  font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
   font-size: 24px; /* Preferred icon size */
@@ -62,7 +62,7 @@
   -moz-osx-font-smoothing: grayscale;
 
   /* Support for IE. */
-  font-feature-settings: "liga";
+  font-feature-settings: 'liga';
 }
 
 body {
@@ -122,7 +122,7 @@ button.hidden {
   display: none;
 }
 
-input[type="text"] {
+input[type='text'] {
   height: 2rem;
   border-radius: 1rem;
   border: 2px solid var(--c-dark);

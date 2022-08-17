@@ -33,8 +33,8 @@ export default class Item {
     return this.id;
   }
 
-  getHTMLID(prefix = "item-", hash = false) {
-    return (hash ? "#" : "") + prefix + this.id;
+  getHTMLID(prefix = 'item-', hash = false) {
+    return (hash ? '#' : '') + prefix + this.id;
   }
 
   setDone(done) {
@@ -57,7 +57,7 @@ export default class Item {
 
   constructor(item) {
     this.id = item.id ?? -1;
-    this.title = item.title ?? "";
+    this.title = item.title ?? '';
     this.done = item.done ?? false;
     this.originDate = item.originDate ?? Date.now();
     this.dueDate = item.dueDate ?? false;

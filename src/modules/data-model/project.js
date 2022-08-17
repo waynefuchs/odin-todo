@@ -1,5 +1,5 @@
-import Container from "./container";
-import Item from "./item";
+import Container from './container';
+import Item from './item';
 
 // A collection containing "Item" objects
 export default class Project extends Container {
@@ -10,13 +10,13 @@ export default class Project extends Container {
   constructor(project = null) {
     super();
     const projectObject = project ?? {};
-    if (typeof projectObject === "string" || projectObject instanceof String) {
-      throw new Error("project.js: Object data expected");
+    if (typeof projectObject === 'string' || projectObject instanceof String) {
+      throw new Error('project.js: Object data expected');
     }
 
     // Assign class variables
     this.id = projectObject.id ?? 0; // 'project-0' is equivalent to "NO PROJECT"
-    this.name = projectObject.name ?? "TODO"; // 'TODO' is the default project name
+    this.name = projectObject.name ?? 'TODO'; // 'TODO' is the default project name
 
     // Add Items
     projectObject.list.forEach((itemObject) => this.add(new Item(itemObject)));
@@ -38,8 +38,8 @@ export default class Project extends Container {
     return this.name;
   }
 
-  getHTMLID(prefix = "project-", hash = false) {
-    return (hash ? "#" : "") + prefix + this.id;
+  getHTMLID(prefix = 'project-', hash = false) {
+    return (hash ? '#' : '') + prefix + this.id;
   }
 
   toJSON() {

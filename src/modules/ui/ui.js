@@ -1,7 +1,7 @@
-import Storage from "../storage";
-import Message from "./message";
-import ProjectHeader from "./project-header";
-import ProjectBody from "./project-body";
+import Storage from '../storage';
+import Message from './message';
+import ProjectHeader from './project-header';
+import ProjectBody from './project-body';
 
 let projects;
 
@@ -14,7 +14,7 @@ export default class UI {
 
   static loadProjects() {
     projects = Storage.load();
-    const main = document.createElement("main");
+    const main = document.createElement('main');
     document.body.append(main);
     const allProjects = projects.getAll();
 
@@ -34,7 +34,7 @@ export default class UI {
 
   static factoryReset() {
     // Remove the current UI representation of the data
-    const main = document.querySelector("main");
+    const main = document.querySelector('main');
     UI.removeElementAndChildren(main);
 
     // Clear the back-end data

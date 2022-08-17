@@ -1,5 +1,5 @@
-import { EVENT_ITEM_DONE } from "./event-types";
-import UI from "./ui";
+import { EVENT_ITEM_DONE } from './event-types';
+import UI from './ui';
 
 function delegateItemDoneStatusChanged(event, data) {
   const item = data.item;
@@ -11,8 +11,8 @@ function delegateItemDoneStatusChanged(event, data) {
   // ui modification
   const ele = document.querySelector(`#item${item.getID()}`);
   if (ele === null) throw `Element (${item.getElementName}) not found.`;
-  if (done) ele.classList.add("strikethrough");
-  else ele.classList.remove("strikethrough");
+  if (done) ele.classList.add('strikethrough');
+  else ele.classList.remove('strikethrough');
 }
 
 PubSub.subscribe(EVENT_ITEM_DONE, delegateItemDoneStatusChanged);

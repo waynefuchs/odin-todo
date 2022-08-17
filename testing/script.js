@@ -1,29 +1,29 @@
-const draggables = document.querySelectorAll(".draggable");
-const containers = document.querySelectorAll(".dropzone");
+const draggables = document.querySelectorAll('.draggable');
+const containers = document.querySelectorAll('.dropzone');
 
 draggables.forEach((element) => {
   element.draggable = true;
-  element.addEventListener("dragstart", (event) => {
-    element.classList.add("dragging");
+  element.addEventListener('dragstart', (event) => {
+    element.classList.add('dragging');
     dragSetData(event);
   });
-  element.addEventListener("dragend", (event) => {
-    element.classList.remove("dragging");
+  element.addEventListener('dragend', (event) => {
+    element.classList.remove('dragging');
   });
 });
 
 containers.forEach((container) => {
-  container.addEventListener("dragover", (event) => {
+  container.addEventListener('dragover', (event) => {
     event.preventDefault();
     const afterElement = getDragElementToPlaceBefore(container, event.clientY);
-    const element = document.querySelector(".dragging");
-    const index = [...container.querySelectorAll(".draggable")].indexOf(
+    const element = document.querySelector('.dragging');
+    const index = [...container.querySelectorAll('.draggable')].indexOf(
       element
     );
     if (afterElement == null) container.appendChild(element);
     else container.insertBefore(element, afterElement);
   });
-  container.addEventListener("drop", (event) => {
+  container.addEventListener('drop', (event) => {
     let dragResult = dragGetData(event);
     const element = container.querySelector(`#${dragResult.id}`);
     dragResult.endProjectID = container.id;
@@ -39,7 +39,7 @@ containers.forEach((container) => {
 
 function dragSetData(event) {
   event.dataTransfer.setData(
-    "text/plain",
+    'text/plain',
     JSON.stringify({
       id: event.target.id,
       startProjectID: event.target.parentElement.id,
@@ -48,12 +48,12 @@ function dragSetData(event) {
 }
 
 function dragGetData(event) {
-  return JSON.parse(event.dataTransfer.getData("text/plain"));
+  return JSON.parse(event.dataTransfer.getData('text/plain'));
 }
 
 function getDragElementToPlaceBefore(container, y) {
   const draggableElements = [
-    ...container.querySelectorAll(".draggable:not(.dragging)"),
+    ...container.querySelectorAll('.draggable:not(.dragging)'),
   ];
   return draggableElements.reduce(
     (closest, child) => {
