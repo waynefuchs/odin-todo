@@ -1,51 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="script.js" defer></script>
-    <link rel="stylesheet" href="testingstyle.css">
-</head>
-<body>
+    <link rel="stylesheet" href="testingstyle.css" />
+  </head>
+  <body>
     <div id="project-header-" class="project-header">
-        <h2 class="grid-title">TODO</h2>
-        <div class="grid-button">
-            <button class="material-icons">create_new_folder</button>
-            <button class="material-icons">add_task</button>    
-        </div>
-        <div id="hide-add-project" class="hidden input-toggle grid-toggle">
-            <input type="text" name="add-project" id="add-project" placeholder="Add Project">
-            <button class="material-icons cancel">cancel</button>
-        </div>
-        <div id="hide-add-item" class="hidden input-toggle grid-toggle">
-            <input type="text" name="add-item" id="add-item" placeholder="Add Item">
-            <button class="material-icons cancel">cancel</button>
-        </div>
+      <h2 class="grid-title">TODO</h2>
+      <div class="grid-button">
+        <button class="material-icons">create_new_folder</button>
+        <button class="material-icons">add_task</button>
+      </div>
+      <div id="hide-add-project" class="hidden input-toggle grid-toggle">
+        <input
+          type="text"
+          name="add-project"
+          id="add-project"
+          placeholder="Add Project"
+        />
+        <button class="material-icons cancel">cancel</button>
+      </div>
+      <div id="hide-add-item" class="hidden input-toggle grid-toggle">
+        <input
+          type="text"
+          name="add-item"
+          id="add-item"
+          placeholder="Add Item"
+        />
+        <button class="material-icons cancel">cancel</button>
+      </div>
     </div>
 
     <div id="project1" class="project">
-        <div id="item1" class="item">
-            <input type="checkbox" name="item1-checkbox" id="item1-checkbox">
-            <label for="item1-checkbox">This is an item that I have TODO</label>
-            <button class="material-icons">delete</button>
-        </div>
+      <div id="item1" class="item">
+        <input type="checkbox" name="item1-checkbox" id="item1-checkbox" />
+        <label for="item1-checkbox">This is an item that I have TODO</label>
+        <button class="material-icons">delete</button>
+      </div>
     </div>
 
     <div id="project-a" class="dropzone">
-        <div id="item-0" class="draggable">Hello0</div>
-        <div id="item-1" class="draggable">Hello1</div>
-        <div id="item-2" class="draggable">Hello2</div>
-        <div id="item-3" class="draggable">Hello3</div>
-        <div id="item-4" class="draggable">Hello4</div>
+      <div id="item-0" class="draggable">Hello0</div>
+      <div id="item-1" class="draggable">Hello1</div>
+      <div id="item-2" class="draggable">Hello2</div>
+      <div id="item-3" class="draggable">Hello3</div>
+      <div id="item-4" class="draggable">Hello4</div>
     </div>
     <div id="project-b" class="dropzone">
-        <div id="item-5" class="draggable">Hello5</div>
-        <div id="item-6" class="draggable">Hello6</div>
-        <div id="item-7" class="draggable">Hello7</div>
-        <div id="item-8" class="draggable">Hello8</div>
-        <div id="item-9" class="draggable">Hello9</div>
+      <div id="item-5" class="draggable">Hello5</div>
+      <div id="item-6" class="draggable">Hello6</div>
+      <div id="item-7" class="draggable">Hello7</div>
+      <div id="item-8" class="draggable">Hello8</div>
+      <div id="item-9" class="draggable">Hello9</div>
     </div>
-</body>
+  </body>
 </html>

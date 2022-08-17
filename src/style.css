@@ -1,207 +1,205 @@
-
 @font-face {
-    font-family: "Inter";
-    src: local('Inter-Regular'), url("fonts/Inter-Regular.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Inter";
+  src: local("Inter-Regular"), url("fonts/Inter-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: "Inter";
-    src: local('Inter-Bold'), url("fonts/Inter-Bold.ttf") format("truetype");
-    font-weight: bold;
-    font-style: normal;
+  font-family: "Inter";
+  src: local("Inter-Bold"), url("fonts/Inter-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Material Icons';
-    font-style: normal;
-    font-weight: 400;
-    src: local('MaterialIcons-Regular'), url(./fonts/MaterialIcons-Regular.ttf) format('truetype');
+  font-family: "Material Icons";
+  font-style: normal;
+  font-weight: 400;
+  src: local("MaterialIcons-Regular"),
+    url(./fonts/MaterialIcons-Regular.ttf) format("truetype");
 }
 
 * {
-    font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 :root {
-    --c1-light: #bfa7f2;
-    --c1-dark: #323240;
-    --c2-light: #dcf235;
-    --c2-dark: #67733D;
-    --c-dark: var(--c1-dark);
-    --c-gray: #636573;
-    --c-lightgray: #d9d9d9;
-    --c-light: #eee;
-    --pad: 0.5rem;
-    --gap: 0.5rem;
+  --c1-light: #bfa7f2;
+  --c1-dark: #323240;
+  --c2-light: #dcf235;
+  --c2-dark: #67733d;
+  --c-dark: var(--c1-dark);
+  --c-gray: #636573;
+  --c-lightgray: #d9d9d9;
+  --c-light: #eee;
+  --pad: 0.5rem;
+  --gap: 0.5rem;
 
-    /* Disable Selection (Highlighting Text) */
-    user-select: none; /* All modern browsers */
+  /* Disable Selection (Highlighting Text) */
+  user-select: none; /* All modern browsers */
 }
 
 .material-icons {
-    font-family: 'Material Icons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;  /* Preferred icon size */
-    display: inline-block;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-  
-    /* Support for all WebKit browsers. */
-    -webkit-font-smoothing: antialiased;
-    /* Support for Safari and Chrome. */
-    text-rendering: optimizeLegibility;
-  
-    /* Support for Firefox. */
-    -moz-osx-font-smoothing: grayscale;
-  
-    /* Support for IE. */
-    font-feature-settings: 'liga';
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: "liga";
 }
 
 body {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .project-header {
-    background-color: var(--c1-dark);
-    color: var(--c-light);
-    padding: var(--pad);
-    display: grid;
-    column-gap: var(--gap);
-    align-items: center;
-    grid-template-columns: 1fr auto;
+  background-color: var(--c1-dark);
+  color: var(--c-light);
+  padding: var(--pad);
+  display: grid;
+  column-gap: var(--gap);
+  align-items: center;
+  grid-template-columns: 1fr auto;
 }
 
 .project {
-    min-height: 1rem;
+  min-height: 1rem;
 }
 
 .grid-toggle {
-    grid-column-start: span 2;
+  grid-column-start: span 2;
 }
 
 .grid-title {
-    padding: 0;
-    margin: 0;
-    font-size: clamp(1rem, 2rem, 2rem);
-    font-weight: 700;
-    color: var(--c-light);
-    background-color: var(--c-dark);
-    border: none;
-    min-width: 50vw;
+  padding: 0;
+  margin: 0;
+  font-size: clamp(1rem, 2rem, 2rem);
+  font-weight: 700;
+  color: var(--c-light);
+  background-color: var(--c-dark);
+  border: none;
+  min-width: 50vw;
 }
 
 .grid-button {
-    justify-self: end;
+  justify-self: end;
 }
 
 /* Don't use empty rule-sets */
 /* .toggle-button { } */
 
 .toggle-container {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--gap);
-    padding-top: var(--pad);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--gap);
+  padding-top: var(--pad);
 }
 
 .toggle-container.hidden {
-    display: none;
+  display: none;
 }
 
 button.hidden {
-    display: none;
+  display: none;
 }
 
-input[type=text] {
-    height: 2rem;
-    border-radius: 1rem;
-    border: 2px solid var(--c-dark);
-    padding-left: var(--pad);
+input[type="text"] {
+  height: 2rem;
+  border-radius: 1rem;
+  border: 2px solid var(--c-dark);
+  padding-left: var(--pad);
 }
 
 button {
-    height: 2rem;
-    width: 2.5rem;
-    color: var(--c-gray);
-    background-color: transparent;
-    align-self: center; /* vertical */
-    border: none;
+  height: 2rem;
+  width: 2.5rem;
+  color: var(--c-gray);
+  background-color: transparent;
+  align-self: center; /* vertical */
+  border: none;
 }
 
 button.armed {
-    color: var(--c2-light);
+  color: var(--c2-light);
 }
 
 button.cancel {
-    color: var(--c1-light);
+  color: var(--c1-light);
 }
 
 .item {
-    background-color: var(--c-lightgray);
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: var(--gap);
-    padding-left: var(--pad);
-    padding-right: var(--pad);
+  background-color: var(--c-lightgray);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--gap);
+  padding-left: var(--pad);
+  padding-right: var(--pad);
 }
 
-.item>label {
-
-    padding-top: calc(var(--pad) * 2);
-    padding-bottom: calc(var(--pad) * 2);
+.item > label {
+  padding-top: calc(var(--pad) * 2);
+  padding-bottom: calc(var(--pad) * 2);
 }
-
 
 .item.done {
-    background-color: var(--c-gray);
+  background-color: var(--c-gray);
 }
 
-.item>label.done {
-    text-decoration: line-through;
+.item > label.done {
+  text-decoration: line-through;
 }
 
-.item>button {
-    visibility: hidden;
+.item > button {
+  visibility: hidden;
 }
 
-.item>button.done {
-    color: var(--c-lightgray);
-    visibility: visible;
+.item > button.done {
+  color: var(--c-lightgray);
+  visibility: visible;
 }
 
 .message {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    padding: var(--pad);
-    background-color: var(--c2-dark);
-    color: var(--c-light);
-    font-weight: bold;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: var(--pad);
+  background-color: var(--c2-dark);
+  color: var(--c-light);
+  font-weight: bold;
 }
 
 .warning {
-    color: var(--c2-light);
+  color: var(--c2-light);
 }
 
 /* Drag and Drop */
 .dragging {
-    transition: 1ms;
-    transform: scaleY(0);
+  transition: 1ms;
+  transform: scaleY(0);
 }
 
 .draggable {
-    cursor: move;
+  cursor: move;
 }
 
 /* .dropzone { } */

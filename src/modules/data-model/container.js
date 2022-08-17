@@ -11,9 +11,11 @@ export default class Container {
   }
 
   add(object, hasKey = null, equalToValue = null) {
-    if (hasKey !== null
-        && equalToValue !== null
-        && this.contains(hasKey, equalToValue)) {
+    if (
+      hasKey !== null &&
+      equalToValue !== null &&
+      this.contains(hasKey, equalToValue)
+    ) {
       return false;
     }
     this.list.push(object);
@@ -29,7 +31,7 @@ export default class Container {
     if (value === null || value === undefined) return false;
     const oldLength = this.list.length;
     this.list = this.list.filter((o) => o[key] !== value);
-    return (oldLength - this.list.length) > 0;
+    return oldLength - this.list.length > 0;
   }
 
   get(key, value) {

@@ -1,13 +1,13 @@
-import ID from './data-model/id';
-import TODO from './data-model/todo';
-import Project from './data-model/project';
-import Item from './data-model/item';
-import Message from './ui/message';
+import ID from "./data-model/id";
+import TODO from "./data-model/todo";
+import Project from "./data-model/project";
+import Item from "./data-model/item";
+import Message from "./ui/message";
 
 // Constants
-const STORAGE_ID_ITEM = 'todo-id-item';
-const STORAGE_ID_PROJECT = 'todo-id-project';
-const STORAGE_DATA = 'todo-data';
+const STORAGE_ID_ITEM = "todo-id-item";
+const STORAGE_ID_PROJECT = "todo-id-project";
+const STORAGE_DATA = "todo-data";
 
 // IDs
 let idItem;
@@ -52,7 +52,7 @@ export default class Storage {
   }
 
   static save() {
-    if (isLoading) throw new Error('Attempted to save during load process.');
+    if (isLoading) throw new Error("Attempted to save during load process.");
 
     db.setItem(STORAGE_ID_ITEM, idItem);
     db.setItem(STORAGE_ID_PROJECT, idProject);
@@ -61,7 +61,7 @@ export default class Storage {
   }
 
   static getProject(projectID) {
-    return todo.get('id', projectID);
+    return todo.get("id", projectID);
   }
 
   static addProject(name) {
@@ -74,7 +74,7 @@ export default class Storage {
   }
 
   static deleteProject(project) {
-    const success = todo.delete('id', project.getID());
+    const success = todo.delete("id", project.getID());
     if (success) Storage.save();
     return success;
   }
@@ -89,34 +89,34 @@ export default class Storage {
   }
 
   static deleteItem(projectID, itemID) {
-    const project = todo.get('id', projectID);
+    const project = todo.get("id", projectID);
     if (project === null || project === undefined) return false;
-    project.delete('id', itemID);
+    project.delete("id", itemID);
     Storage.save();
     return true;
   }
 
   static moveItem(itemID, fromProjectID, toProjectID, index) {
     const fromProject = Storage.getProject(fromProjectID);
-    const item = fromProject.get('id', itemID);
+    const item = fromProject.get("id", itemID);
     const toProject = Storage.getProject(toProjectID);
-    fromProject.delete('id', item.getID());
+    fromProject.delete("id", item.getID());
     toProject.insert(item, index);
     Storage.save();
   }
 
   static updateProjectName(project, title) {
-    if (title === '') {
-      Message.notify('Project name can not be empty.');
+    if (title === "") {
+      Message.notify("Project name can not be empty.");
       return false;
     }
 
-    if (todo.contains('name', title)) {
-      const existingProject = todo.get('name', title);
+    if (todo.contains("name", title)) {
+      const existingProject = todo.get("name", title);
       // check to see if the user clicked to update, then didn't make changes
       // in other words: the existing project is this project
       if (project === existingProject) return true;
-      Message.notify('The project already exists.');
+      Message.notify("The project already exists.");
       return false;
     }
     project.setName(title);
